@@ -4,19 +4,10 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
-        stage('Maven Build') {
-            agent {
-                docker {
-                    image 'maven:3.8.1-adoptopenjdk-11'
-                    args '-v /root/.m2:/root/.m2'
-                }
-            }
+
+        stage('Build') {
             steps {
-                sh 'cd geography-service && mvn -B -DskipTests clean package'
-            }
-        }
-        stage('Docker Build') {
-            steps {
+                sh 'cd geography-service && docker run -it --rm -v "$PWD":/app -v "$HOME/.m2":/root/.m2 -v  -w /app maven mvn clean package -DskipTests'
                 sh 'cd geography-service && docker build -t bsessevmez/geography-service:latest .'
             }
         }
