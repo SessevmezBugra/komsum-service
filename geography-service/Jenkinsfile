@@ -9,10 +9,18 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
-        stage('Build') {
+        stage('Maven Build') {
             steps {
                 sh 'cd geography-service && mvn -B -DskipTests clean package'
-                sh 'cd geography-service && docker build -t bsessevmez/geography-service:latest .'
+            }
+        }
+        stage('Docker Build') {
+            agent {
+              dockerfile {
+                additionalBuildArgs '-t bsessevmez/geography-service:latest'
+                dir 'geography-service'
+                filename 'Dockerfile'
+              }
             }
         }
     }
