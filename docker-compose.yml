@@ -1,0 +1,81 @@
+version: '3.9'
+
+services:
+
+  geography-service:
+    container_name: geography-service
+    image: bsessevmez/confirmation-service:latest
+    build:
+      context: geography-service
+      dockerfile: Dockerfile
+    environment:
+      # RABBIT_URI: $RABBIT_URI
+      RDS_HOSTNAME: $GEOGRAPHY_DB_HOSTNAME
+      RDS_PORT: $GEOGRAPHY_DB_PORT
+      RDS_DB_NAME: $GEOGRAPHY_DB_NAME
+      RDS_USERNAME: $GEOGRAPHY_DB_USERNAME
+      RDS_PASSWORD: $GEOGRAPHY_DB_PASSWORD
+      CONFIG_URI:  $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+      KEYCLOAK_URI: $KEYCLOAK_URI
+    ports:
+      - "8090:8090"
+#    labels:
+#      collect_logs_with_filebeat: "true"
+#      decode_log_event_to_json_object: "true"
+    restart: always
+    depends_on:
+      - geography-database
+#      - eureka-server
+      # - rabbitmq
+      #      - zipkin-server
+#      - config-service
+
+  geography-database:
+    container_name: geography-database
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: $GEOGRAPHY_DB_PASSWORD
+      MYSQL_USER: $GEOGRAPHY_DB_USERNAME
+      MYSQL_PASSWORD: $GEOGRAPHY_DB_PASSWORD
+      MYSQL_DATABASE: $GEOGRAPHY_DB_NAME
+    ports:
+      - "${GEOGRAPHY_DB_EXPOSED_PORT}:3306"
+    restart: always
+    volumes:
+      - database-volume:/var/lib/geography-database
+
+#  mongo:
+#    image: mongo
+#    restart: always
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: root
+#      MONGO_INITDB_ROOT_PASSWORD: example
+#
+#  mongo-express:
+#    image: mongo-express
+#    restart: always
+#    ports:
+#      - 8081:8081
+#    environment:
+#      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+#      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+
+
+
+# Volumes
+volumes:
+  database-volume:
+  conf:
+  vhost:
+  html:
+  dhparam:
+  certs:
+  acme:
+
+networks:
+  default:
+    external:
+      name: webproxy
