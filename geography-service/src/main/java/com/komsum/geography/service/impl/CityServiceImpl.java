@@ -32,7 +32,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public CityEntity findById(Integer id) {
-        return cityRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("City not found for this ID. " + id));
+        return cityRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("City not found for this ID.  " + id));
     }
 
     @Override
