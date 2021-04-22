@@ -6,7 +6,7 @@ pipeline {
 
         stage('geography-service') {
             steps {
-                build job: 'pipeline-geography-service', propagate: true, wait: true
+                build job: 'geography-service-pipeline', propagate: true, wait: true
             }
         }
 
