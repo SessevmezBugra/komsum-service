@@ -7,7 +7,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'docker run -it --rm -v "$PWD":/app -v "$HOME/.m2":/root/.m2 -w /app/geography-service maven mvn clean package -DskipTests'
+                sh 'docker run -i --rm -v "$PWD":/app -v "$HOME/.m2":/root/.m2 -w /app/geography-service maven mvn clean package -DskipTests'
                 sh 'cd geography-service && docker build -t bsessevmez/geography-service:latest .'
             }
         }
