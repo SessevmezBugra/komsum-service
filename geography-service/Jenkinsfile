@@ -22,6 +22,9 @@ pipeline {
                 filename 'Dockerfile'
               }
             }
+            steps {
+                echo 'Hello, JDK'
+            }
         }
     }
 }
