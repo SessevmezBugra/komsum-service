@@ -11,11 +11,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh '''
-                        cd geography-service
-                        mvn -B -DskipTests clean package'
-                        docker build -t bsessevmez/geography-service:latest .
-                '''
+                sh 'cd geography-service && mvn -B -DskipTests clean package'
+                sh 'cd geography-service && docker build -t bsessevmez/geography-service:latest .'
             }
         }
     }
