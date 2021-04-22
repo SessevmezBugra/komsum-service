@@ -15,15 +15,9 @@ pipeline {
             }
         }
         stage('Docker Build') {
-            agent {
-              dockerfile {
-                args '-t bsessevmez/geography-service:latest'
-                dir 'geography-service'
-                filename 'Dockerfile'
-              }
-            }
+            agent { node { label 'docker-agent' } }
             steps {
-                echo 'Hello, JDK'
+                sh 'cd geography-service && docker build -t bsessevmez/geography-service:latest .'
             }
         }
     }
