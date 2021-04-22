@@ -17,8 +17,13 @@ public class CityController {
 
     private final CityService cityService;
 
+//    @RequestMapping(method = RequestMethod.GET)
+//    public List<CityEntity> getAllCity(){
+//        return cityService.findAll();
+//    }
+
     @RequestMapping(method = RequestMethod.GET)
-    public List<CityEntity> getAllCity(){
-        return cityService.findAll();
+    public String getAllCity(){
+        return "Test";
     }
 }
