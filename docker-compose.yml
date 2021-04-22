@@ -4,7 +4,7 @@ services:
 
   geography-service:
     container_name: geography-service
-    image: bsessevmez/confirmation-service:latest
+    image: bsessevmez/geography-service:latest
     build:
       context: geography-service
       dockerfile: Dockerfile
