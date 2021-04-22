@@ -4,6 +4,7 @@ import com.komsum.geography.entity.DistrictEntity;
 import com.komsum.geography.service.DistrictService;
 import com.komsum.geography.util.constant.ApiPaths;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class DistrictController {
     private final DistrictService districtService;
 
     @RequestMapping(value = "/city/{id}", method = RequestMethod.GET)
-    public List<DistrictEntity> getByCityId(@PathVariable(value = "id") Integer cityId) {
-        return districtService.findByCityId(cityId);
+    public ResponseEntity<List<DistrictEntity>> getByCityId(@PathVariable(value = "id") Integer cityId) {
+        return ResponseEntity.ok(districtService.findByCityId(cityId));
     }
 }
