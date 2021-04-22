@@ -1,6 +1,7 @@
 package com.komsum.geography.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public class NeighborhoodEntity implements Serializable {
     @Column(name="NAME")
     private String name;
 
+    @JsonBackReference
     @ManyToOne(optional=true, fetch = FetchType.LAZY)
     @JoinColumn(name="DISTRICT_ID")
     private DistrictEntity district;

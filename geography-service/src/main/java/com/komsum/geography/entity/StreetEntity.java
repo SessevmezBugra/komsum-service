@@ -25,7 +25,7 @@ public class StreetEntity implements Serializable {
     @Column(name="NAME")
     private String name;
 
-    @JsonIgnore
+    @JsonBackReference
     @ManyToOne(optional=true, fetch = FetchType.LAZY)
     @JoinColumn(name="NEIGHBORHOOD_ID")
     private NeighborhoodEntity neighborhood;

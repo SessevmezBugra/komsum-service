@@ -25,7 +25,7 @@ public class CityEntity implements Serializable {
     @Column(name="NAME")
     private String name;
 
-    @JsonManagedReference
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="city")
-    private List<DistrictEntity> districts;
+//    @JsonManagedReference
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy="city")
+//    private List<DistrictEntity> districts;
 }
