@@ -12,7 +12,7 @@ pipeline {
 
         stage('deploy') {
             steps {
-                build job: 'pipeline-deploy-app', propagate: true, wait: true
+                sh 'docker-compose up -d'
             }
         }
 
