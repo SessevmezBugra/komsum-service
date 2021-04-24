@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    active: ${CONFIG_SERVER_ACTIVE_PROFILE:native}
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/{profile}
+        git:
+          strictHostKeyChecking: false
+          uri: git@git-config:SessevmezBugra/komsum-config-prod.git #asagidakilerle eslemezse calisir.
+          searchPaths: '{profile}' #asagidakilerle eslesmezse searhPaths calisir.
+          repos:
+            dev:
+              pattern:
+                - '*/dev'
+              uri: git@git-config:SessevmezBugra/komsum-config-dev.git
+            qa:
+              pattern:
+                - '*/qa'
+              uri: git@git-config:SessevmezBugra/komsum-config-qa.git
+            prod:
+              pattern:
+                - '*/prod'
+              uri: git@git-config:SessevmezBugra/komsum-config-prod.git
+
+
+
+
+server:
+  port: 8888
