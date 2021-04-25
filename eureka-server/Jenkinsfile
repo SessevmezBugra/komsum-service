@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+    options {
+        skipStagesAfterUnstable()
+    }
+    stages {
+
+        stage('Build') {
+            steps {
+                sh 'docker run -i --rm -v "$PWD":/app -v "$HOME/.m2":/root/.m2 -w /app/eureka-server maven mvn clean package -DskipTests'
+                sh 'cd eureka-server && docker build -t bsessevmez/eureka-server:latest .'
+            }
+        }
+    }
+}

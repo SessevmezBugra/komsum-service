@@ -37,6 +37,11 @@ public class PostController {
         return ResponseEntity.ok(postService.findById(id));
     }
 
+    @RequestMapping(method=RequestMethod.GET)
+    public ResponseEntity<List<PostEntity>> getAllPost(){
+        return ResponseEntity.ok(postService.findAll());
+    }
+
     @RequestMapping(value="/user/{username}", method=RequestMethod.GET)
     public ResponseEntity<List<PostEntity>> getPostsByUsername(@PathVariable(value="username", required=true) String username){
         return ResponseEntity.ok(postService.findByUsername(username));

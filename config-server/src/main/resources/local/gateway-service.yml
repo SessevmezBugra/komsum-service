@@ -1,0 +1,28 @@
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      routes:
+        - id: geography-service
+          uri: ${GEOGRAPHY_SERVICE_URI:http://localhost:8090}
+          predicates:
+            - Path=/geography/**
+        - id: post-service
+          uri: ${POST_SERVICE_URI:http://localhost:8091}
+          predicates:
+            - Path=/post/**
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+
+server:
+  port: 4000

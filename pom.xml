@@ -21,7 +21,7 @@
 
     <properties>
         <java.version>11</java.version>
-        <spring.cloud.version>2020.0.1</spring.cloud.version>
+        <spring.cloud.version>2020.0.2</spring.cloud.version>
         <keycloak.version>12.0.4</keycloak.version>
         <logstash-logback-encoder.version>6.1</logstash-logback-encoder.version>
 
@@ -32,6 +32,8 @@
         <module>post-service</module>
         <module>geography-service</module>
         <module>config-server</module>
+        <module>gateway-service</module>
+        <module>eureka-server</module>
     </modules>
 
     <dependencyManagement>

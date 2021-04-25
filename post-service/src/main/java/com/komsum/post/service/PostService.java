@@ -17,4 +17,6 @@ public interface PostService {
     List<PostEntity> findPostsByIdIn(List<String> ids);
 
     List<PostEntity> findByUsername(String username);
+
+    List<PostEntity> findAll();
 }

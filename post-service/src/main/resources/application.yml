@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: post-service
-  data:
-    mongodb:
-      database: post
-
-server:
-  port: 9091

@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: ${CONFIG_SERVER_ACTIVE_PROFILE:native}
+    active: ${ACTIVE_PROFILE:native}
   cloud:
     config:
       server:
@@ -23,8 +23,6 @@ spring:
               pattern:
                 - '*/prod'
               uri: git@git-config:SessevmezBugra/komsum-config-prod.git
-
-
 
 
 server:

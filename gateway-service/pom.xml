@@ -10,10 +10,9 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>post</artifactId>
-    <name>post-service</name>
-    <description>Post Service</description>
-
+    <artifactId>gateway</artifactId>
+    <name>gateway-service</name>
+    <description>Gateway Service</description>
 
     <dependencies>
         <dependency>
@@ -34,12 +33,12 @@
             <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
 
         <dependency>
@@ -63,15 +62,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.5.7</version>
-        </dependency>
     </dependencies>
 
     <build>
-        <finalName>post-service</finalName>
+        <finalName>gateway-service</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

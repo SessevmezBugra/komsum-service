@@ -44,4 +44,9 @@ public class PostServiceImpl implements PostService {
     public List<PostEntity> findByUsername(String username) {
         return postRepository.findByUsernameOrderByCreatedAtDesc(username);
     }
+
+    @Override
+    public List<PostEntity> findAll() {
+        return postRepository.findAll();
+    }
 }
