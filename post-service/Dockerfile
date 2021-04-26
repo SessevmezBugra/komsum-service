@@ -17,7 +17,7 @@ COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY ${DEPENDENCY}/META-INF /app/META-INF
 COPY ${DEPENDENCY}/BOOT-INF/classes /app
 #ENV JAVA_OPTS="-Xmx200m"
-ENTRYPOINT ["java","-Xmx200m","-cp","app:app/lib/*","com.komsum.post.PostServiceApplication"]
+ENTRYPOINT ["java","-Xmx400m","-cp","app:app/lib/*","com.komsum.post.PostServiceApplication"]
 
 
 ########PROD###########

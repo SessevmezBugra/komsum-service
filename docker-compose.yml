@@ -43,7 +43,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 200M
+          memory: 400M
     ports:
       - "8761:8761"
     labels:
@@ -161,7 +161,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 200M
+          memory: 400M
     ports:
       - "8091:8091"
     #    labels:
