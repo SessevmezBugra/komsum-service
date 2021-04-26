@@ -24,7 +24,8 @@ ARG DEPENDENCY=target/dependency
 COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY ${DEPENDENCY}/META-INF /app/META-INF
 COPY ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.komsum.config.ConfigServerApplication"]
+#ENV JAVA_OPTS="-Xmx200m"
+ENTRYPOINT ["java","-Xmx200m","-cp","app:app/lib/*","com.komsum.config.ConfigServerApplication"]
 
 
 ########PROD###########
