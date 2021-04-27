@@ -136,7 +136,7 @@ services:
       - "${GEOGRAPHY_DB_EXPOSED_PORT}:3306"
     restart: always
     volumes:
-      - database-volume:/var/lib/geography-database
+      - /var/lib/mysql-volume:/var/lib/mysql
 
   post-service:
     container_name: post-service
