@@ -28,4 +28,7 @@ public class DistrictEntity implements Serializable {
     @JoinColumn(name="CITY_ID")
     private CityEntity city;
 
+    @Column(name="CITY_NAME")
+    private String cityName;
+
 }

@@ -29,4 +29,14 @@ public class NeighborhoodEntity implements Serializable {
     @JoinColumn(name="DISTRICT_ID")
     private DistrictEntity district;
 
+    @Column(name="DISTRICT_NAME")
+    private String districtName;
+
+    @Column(name="CITY_ID")
+    private Integer cityId;
+
+    @Column(name="CITY_NAME")
+    private String cityName;
+
+
 }
