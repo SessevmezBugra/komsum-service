@@ -17,7 +17,7 @@ COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY ${DEPENDENCY}/META-INF /app/META-INF
 COPY ${DEPENDENCY}/BOOT-INF/classes /app
 #ENV JAVA_OPTS="-Xmx200m"
-ENTRYPOINT ["java","-Xmx400m","-cp","app:app/lib/*","com.komsum.eureka.EurekaServerApplication"]
+ENTRYPOINT ["java","-Xmx500m","-cp","app:app/lib/*","com.komsum.eureka.EurekaServerApplication"]
 
 
 ########PROD###########
