@@ -10,4 +10,5 @@ import java.util.List;
 public interface PostRepository extends MongoRepository<PostEntity, String> {
     List<PostEntity> findByUsernameOrderByCreatedAtDesc(String username);
     List<PostEntity> findByIdInOrderByCreatedAtDesc(List<String> ids);
+    List<PostEntity> findAllByOrderByCreatedAtDesc();
 }
