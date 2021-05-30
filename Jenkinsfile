@@ -28,6 +28,12 @@ pipeline {
             }
         }
 
+        stage('tag-service') {
+            steps {
+                build job: 'tag-service-pipeline', propagate: true, wait: true
+            }
+        }
+
         stage('gateway-service') {
             steps {
                 build job: 'gateway-service-pipeline', propagate: true, wait: true

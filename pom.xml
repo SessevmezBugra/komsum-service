@@ -34,6 +34,7 @@
         <module>config-server</module>
         <module>gateway-service</module>
         <module>eureka-server</module>
+        <module>tag-service</module>
     </modules>
 
     <dependencyManagement>

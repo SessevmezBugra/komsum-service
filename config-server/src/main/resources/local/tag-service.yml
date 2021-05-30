@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: tag-service
+  data:
+    mongodb:
+      database: ${RDS_DB_NAME:tag}
+      host: ${RDS_HOSTNAME:localhost}
+      port: ${RDS_PORT:27017}
+      username: ${RDS_USERNAME:root}
+      password: ${RDS_PASSWORD:example}
+      authentication-database: ${RDS_ADMIN_DATABASE:admin}
+
+server:
+  port: 8092
