@@ -224,7 +224,7 @@ services:
         limits:
           memory: 500M
     ports:
-      - "8091:8091"
+      - "8092:8092"
     #    labels:
     #      collect_logs_with_filebeat: "true"
     #      decode_log_event_to_json_object: "true"
