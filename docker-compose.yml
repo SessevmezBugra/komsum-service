@@ -199,7 +199,42 @@ services:
         limits:
           memory: 500M
 
-
+  tag-service:
+    container_name: tag-service
+    image: bsessevmez/tag-service:latest
+    build:
+      context: tag-service
+      dockerfile: Dockerfile
+    environment:
+      # RABBIT_URI: $RABBIT_URI
+      ACTIVE_PROFILE: $ACTIVE_PROFILE
+      RDS_HOSTNAME: $POST_DB_HOSTNAME
+      RDS_PORT: $POST_DB_PORT
+      RDS_DB_NAME: $TAG_DB_NAME
+      RDS_USERNAME: $POST_DB_USERNAME
+      RDS_PASSWORD: $POST_DB_PASSWORD
+      RDS_ADMIN_DATABASE: $POST_ADMIN_DATABASE
+      CONFIG_URI: $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+      KEYCLOAK_URI: $KEYCLOAK_URI
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+    ports:
+      - "8091:8091"
+    #    labels:
+    #      collect_logs_with_filebeat: "true"
+    #      decode_log_event_to_json_object: "true"
+    restart: always
+    depends_on:
+      - post-database
+      - eureka-server
+      # - rabbitmq
+      #      - zipkin-server
+      - config-server
 
 # Volumes
 volumes:
