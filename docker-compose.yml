@@ -72,6 +72,7 @@ services:
       AUTH_SERVICE_URI: $AUTH_SERVICE_URI
       GEOGRAPHY_SERVICE_URI: $GEOGRAPHY_SERVICE_URI
       POST_SERVICE_URI: $POST_SERVICE_URI
+      TAG_SERVICE_URI: $TAG_SERVICE_URI
     deploy:
       resources:
         limits:
