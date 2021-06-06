@@ -1,5 +1,6 @@
 package com.komsum.post.web;
 
+import com.komsum.post.dto.PostDto;
 import com.komsum.post.entity.PostEntity;
 import com.komsum.post.service.PostService;
 import com.komsum.post.util.constant.ApiPath;
@@ -17,13 +18,13 @@ public class PostController {
     private final PostService postService;
 
     @RequestMapping(method= RequestMethod.POST)
-    public ResponseEntity<PostEntity> createPost(@RequestBody PostEntity postEntity){
-        return ResponseEntity.ok(postService.create(postEntity));
+    public ResponseEntity<PostEntity> createPost(@RequestBody PostDto postDto){
+        return ResponseEntity.ok(postService.create(postDto));
     }
 
     @RequestMapping(method= RequestMethod.PUT)
     public ResponseEntity<PostEntity> updatePost(@RequestBody PostEntity postEntity){
-        return ResponseEntity.ok(postService.create(postEntity));
+        return ResponseEntity.ok(postService.update(postEntity));
     }
 
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)

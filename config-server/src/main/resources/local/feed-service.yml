@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: feed-service
+  data:
+    cassandra:
+      port: 9042
+      schema-action: CREATE_IF_NOT_EXISTS
+      keyspace-name: mykeyspace
+      contact-points: localhost
+      entity-base-package: com.komsum.feed.entity
+
+server:
+  port: 8093

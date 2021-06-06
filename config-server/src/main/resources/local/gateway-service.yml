@@ -18,6 +18,14 @@ spring:
           uri: ${POST_SERVICE_URI:http://localhost:8091}
           predicates:
             - Path=/post/**
+        - id: tag-service
+          uri: ${TAG_SERVICE_URI:http://localhost:8092}
+          predicates:
+            - Path=/tag/**
+        - id: feed-service
+          uri: ${FEED_SERVICE_URI:http://localhost:8093}
+          predicates:
+            - Path=/feed/**
 
 eureka:
   client:

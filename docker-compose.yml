@@ -236,6 +236,13 @@ services:
       #      - zipkin-server
       - config-server
 
+  cassandra:
+    image: cassandra:latest
+    container_name: cassandra
+    restart: always
+    ports:
+      - "9042:9042"
+
 # Volumes
 volumes:
   database-volume:
