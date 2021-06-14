@@ -3,10 +3,10 @@ spring:
     name: feed-service
   data:
     cassandra:
-      port: 9042
+      port: ${RDS_PORT:9042}
       schema-action: CREATE_IF_NOT_EXISTS
-      keyspace-name: mykeyspace
-      contact-points: localhost
+      keyspace-name: ${RDS_DB_NAME:mykeyspace}
+      contact-points: ${RDS_HOSTNAME:localhost}
       entity-base-package: com.komsum.feed.entity
 
 server:

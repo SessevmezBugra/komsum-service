@@ -2,8 +2,12 @@ package com.komsum.feed.service;
 
 import com.komsum.feed.dto.PostDto;
 import com.komsum.feed.entity.PostFeedEntity;
+import com.komsum.feed.model.SlicedResult;
+import org.springframework.data.domain.Pageable;
 
+import java.nio.ByteBuffer;
 import java.util.List;
+import java.util.Optional;
 
 public interface PostFeedService {
 
@@ -11,7 +15,7 @@ public interface PostFeedService {
 
     PostFeedEntity update(PostFeedEntity postFeedEntity);
 
-    List<PostFeedEntity> findAll();
+    Iterable<PostFeedEntity> findAll();
 
-    List<PostFeedEntity> findByStreetIdAndTagIdIn(Integer streetId, Iterable<Integer> tagIds);
+    SlicedResult<PostFeedEntity> findByStreetIdAndTagIdInAndPage(Integer streetId, Iterable<Integer> tagIds, Optional<Integer> pageNumber);
 }

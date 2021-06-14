@@ -8,6 +8,7 @@ import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
+import java.time.Instant;
 import java.util.Date;
 
 @Table("POST_FEED")
@@ -23,7 +24,7 @@ public class PostFeedEntity {
     private Integer tagId;
 
     @PrimaryKeyColumn(name = "CREATED_AT", ordinal = 2, ordering = Ordering.DESCENDING)
-    private Date createdAt;
+    private Instant createdAt;
 
     @PrimaryKeyColumn(name = "POST_ID", ordinal = 3)
     private String postId;

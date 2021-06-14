@@ -73,6 +73,7 @@ services:
       GEOGRAPHY_SERVICE_URI: $GEOGRAPHY_SERVICE_URI
       POST_SERVICE_URI: $POST_SERVICE_URI
       TAG_SERVICE_URI: $TAG_SERVICE_URI
+      FEED_SERVICE_URI: $FEED_SERVICE_URI
     deploy:
       resources:
         limits:
@@ -237,12 +238,50 @@ services:
       #      - zipkin-server
       - config-server
 
+  feed-service:
+    container_name: feed-service
+    image: bsessevmez/feed-service:latest
+    build:
+      context: feed-service
+      dockerfile: Dockerfile
+    environment:
+      # RABBIT_URI: $RABBIT_URI
+      ACTIVE_PROFILE: $ACTIVE_PROFILE
+      RDS_HOSTNAME: $FEED_DB_HOSTNAME
+      RDS_PORT: $FEED_DB_PORT
+      RDS_DB_NAME: $FEED_DB_NAME
+      CONFIG_URI: $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+      KEYCLOAK_URI: $KEYCLOAK_URI
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+    ports:
+      - "8093:8093"
+    #    labels:
+    #      collect_logs_with_filebeat: "true"
+    #      decode_log_event_to_json_object: "true"
+    restart: always
+    depends_on:
+      - cassandra
+      - eureka-server
+      # - rabbitmq
+      #      - zipkin-server
+      - config-server
+
   cassandra:
     image: cassandra:latest
     container_name: cassandra
     restart: always
     ports:
       - "9042:9042"
+    deploy:
+      resources:
+        limits:
+          memory: 999M
 
 # Volumes
 volumes:

@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+    options {
+        skipStagesAfterUnstable()
+    }
+    stages {
+
+        stage('Build') {
+            steps {
+                sh 'docker run -i --rm -v "$PWD":/app -v "$HOME/.m2":/root/.m2 -w /app/feed-service maven mvn clean package -DskipTests'
+                sh 'cd feed-service && docker build -t bsessevmez/feed-service:latest .'
+            }
+        }
+    }
+}
