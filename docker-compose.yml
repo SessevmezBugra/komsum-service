@@ -278,10 +278,10 @@ services:
     restart: always
     ports:
       - "9042:9042"
-    deploy:
-      resources:
-        limits:
-          memory: 999M
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 999M
 
 # Volumes
 volumes:
