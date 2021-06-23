@@ -1,6 +1,7 @@
 package com.komsum.feed.service.impl;
 
 import com.datastax.oss.driver.api.core.cql.PagingState;
+import com.komsum.feed.client.PostServiceClient;
 import com.komsum.feed.dto.PostDto;
 import com.komsum.feed.entity.PostFeedEntity;
 import com.komsum.feed.exception.ResourceNotFoundException;
@@ -26,6 +27,7 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +35,7 @@ public class PostFeedServiceImpl implements PostFeedService {
 
     private final PostFeedRepository postFeedRepository;
     private final ModelMapper modelMapper;
+    private final PostServiceClient postServiceClient;
 
     @Override
     public void create(PostDto postDto) {
@@ -56,33 +59,7 @@ public class PostFeedServiceImpl implements PostFeedService {
     }
 
     @Override
-    public SlicedResult<PostFeedEntity> findByStreetIdAndTagIdInAndPage(Integer streetId, Iterable<Integer> tagIds, Optional<Integer> pageNumber) {
-//        CassandraPageRequest request = pagingState
-//                .map(p -> CassandraPageRequest
-//                        .of(PageRequest.of(0, AppConstants.PAGE_SIZE), string2ByteBuffer(p, Charset.forName("UTF-8"))))
-//                .orElse(CassandraPageRequest.first(AppConstants.PAGE_SIZE));
-//        if (request.getPagingState() != null)
-//            System.out.println(request.getPagingState().toString());
-//
-//        Slice<PostFeedEntity> page = postFeedRepository.findByStreetIdAndTagIdIn(streetId, tagIds, request);
-
-//        if (page.isEmpty()) {
-//            throw new ResourceNotFoundException(
-//                    String.format("Feed not found"));
-//        }
-//
-//        String pageState = null;
-//
-//        if (!page.isLast()) {
-//            pageState = byteBuffer2String(((CassandraPageRequest) page.getPageable()).getPagingState(), Charset.forName("UTF-8"));
-//        }
-//        System.out.println(((CassandraPageRequest) page.getPageable()).getPagingState().toString());
-//        return SlicedResult
-//                .<PostFeedEntity>builder()
-//                .content(page.getContent())
-//                .isLast(page.isLast())
-//                .pageState(pageState)
-//                .build();
+    public SlicedResult<PostDto> findByStreetIdAndTagIdInAndPage(Integer streetId, Iterable<Integer> tagIds, Optional<Integer> pageNumber) {
 
         Slice<PostFeedEntity> slice = postFeedRepository.findByStreetIdAndTagIdIn(streetId, tagIds, CassandraPageRequest.first(AppConstants.PAGE_SIZE));
         int currpage = 0;
@@ -91,9 +68,11 @@ public class PostFeedServiceImpl implements PostFeedService {
             slice = postFeedRepository.findByStreetIdAndTagIdIn(streetId, tagIds, slice.nextPageable());
             currpage++;
         }
+        List<String> postIds = slice.getContent().stream().map(PostFeedEntity::getPostId).distinct().collect(Collectors.toList());
+        List<PostDto> posts = postServiceClient.getPostsByIdIn(postIds).getBody();
         return SlicedResult
-                .<PostFeedEntity>builder()
-                .content(slice.getContent())
+                .<PostDto>builder()
+                .content(posts)
                 .isLast(slice.isLast())
                 .build();
     }

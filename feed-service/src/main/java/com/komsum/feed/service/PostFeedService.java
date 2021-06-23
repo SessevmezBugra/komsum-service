@@ -17,5 +17,5 @@ public interface PostFeedService {
 
     Iterable<PostFeedEntity> findAll();
 
-    SlicedResult<PostFeedEntity> findByStreetIdAndTagIdInAndPage(Integer streetId, Iterable<Integer> tagIds, Optional<Integer> pageNumber);
+    SlicedResult<PostDto> findByStreetIdAndTagIdInAndPage(Integer streetId, Iterable<Integer> tagIds, Optional<Integer> pageNumber);
 }

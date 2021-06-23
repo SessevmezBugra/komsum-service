@@ -25,6 +25,9 @@ public class CassandraConfig
 
     @Value("${spring.data.cassandra.port}")
     private int port;
+    
+    @Value("${spring.data.cassandra.data-center}")
+    private String dataCenter;
 
 
 
@@ -57,5 +60,10 @@ public class CassandraConfig
     @Override
     public String[] getEntityBasePackages() {
             return new String[]{"com.komsum.feed.entity"};
+    }
+    
+    @Override
+    protected String getLocalDataCenter() {
+    	return dataCenter;
     }
 }
