@@ -1,24 +1,23 @@
 package com.komsum.feed.entity;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.time.Instant;
+
 import org.springframework.data.cassandra.core.cql.Ordering;
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
+import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-import java.time.Instant;
-import java.util.Date;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Table("POST_FEED")
+@Table("POST_COUNTRY_TAG")
 @Data
-//@Builder
 @NoArgsConstructor
-public class PostFeedEntity {
-
-    @PrimaryKeyColumn(name = "STREET_ID", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
-    private Integer streetId;
+public class PostCountryTagEntity {
+	
+	@PrimaryKeyColumn(name = "COUNTRY_ID", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
+    private Integer countryId;
 
     @PrimaryKeyColumn(name = "TAG_ID", ordinal = 1 )
     private Integer tagId;
@@ -28,5 +27,8 @@ public class PostFeedEntity {
 
     @PrimaryKeyColumn(name = "POST_ID", ordinal = 3)
     private String postId;
+    
+    @Column("STREET_ID")
+    private Integer streetId;
 
 }

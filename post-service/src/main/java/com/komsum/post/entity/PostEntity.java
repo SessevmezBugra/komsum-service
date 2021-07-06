@@ -1,11 +1,15 @@
 package com.komsum.post.entity;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.annotation.*;
+import java.time.Instant;
+
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
@@ -16,10 +20,10 @@ public class PostEntity {
     private String id;
 
     @CreatedDate
-    private Date createdAt;
+    private Instant createdAt;
 
     @LastModifiedDate
-    private Date updatedAt;
+    private Instant updatedAt;
 
     @CreatedBy
     private String username;

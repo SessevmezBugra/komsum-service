@@ -28,7 +28,7 @@ public class PostController {
     }
 
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-    public ResponseEntity deletePost(@PathVariable(value="id", required=true) String id){
+    public ResponseEntity<Object> deletePost(@PathVariable(value="id", required=true) String id){
         postService.deleteById(id);
         return ResponseEntity.ok().build();
     }

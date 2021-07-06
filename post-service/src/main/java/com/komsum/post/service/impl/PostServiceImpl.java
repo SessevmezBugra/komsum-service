@@ -1,16 +1,19 @@
 package com.komsum.post.service.impl;
 
+import java.time.Instant;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+
 import com.komsum.post.client.FeedServiceClient;
 import com.komsum.post.dto.PostDto;
 import com.komsum.post.entity.PostEntity;
 import com.komsum.post.error.EntityNotFoundException;
 import com.komsum.post.repository.PostRepository;
 import com.komsum.post.service.PostService;
-import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -23,8 +26,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostEntity create(PostDto postDto) {
         PostEntity postEntity = modelMapper.map(postDto, PostEntity.class);
+        postEntity.setCreatedAt(Instant.now());
         postRepository.save(postEntity);
-        postDto.setPostId(postEntity.getId());
+        postDto.setId(postEntity.getId());
+        postDto.setCreatedAt(postEntity.getCreatedAt());
         feedServiceClient.createPostFeed(postDto);
         return postEntity;
     }
