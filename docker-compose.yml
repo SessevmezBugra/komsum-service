@@ -255,6 +255,7 @@ services:
       EUREKA_URI: $EUREKA_URI
       ZIPKIN_URI: $ZIPKIN_URI
       KEYCLOAK_URI: $KEYCLOAK_URI
+      DATA_CENTER: $DATA_CENTER
     deploy:
       resources:
         limits:

@@ -8,7 +8,7 @@ spring:
       keyspace-name: ${RDS_DB_NAME:mykeyspace}
       contact-points: ${RDS_HOSTNAME:localhost}
       entity-base-package: com.komsum.feed.entity
-      data-center: dc1
+      data-center: ${DATA_CENTER:dc1}
 
 server:
   port: 8093
