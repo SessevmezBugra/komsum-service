@@ -281,7 +281,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 999M
+          memory: 3G
 
 # Volumes
 volumes:
