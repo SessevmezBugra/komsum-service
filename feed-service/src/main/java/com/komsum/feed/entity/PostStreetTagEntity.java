@@ -19,7 +19,7 @@ public class PostStreetTagEntity {
     private Integer streetId;
 
     @PrimaryKeyColumn(name = "TAG_ID", ordinal = 1 )
-    private Integer tagId;
+    private String tagId;
 
     @PrimaryKeyColumn(name = "CREATED_AT", ordinal = 2, ordering = Ordering.DESCENDING)
     private Instant createdAt;

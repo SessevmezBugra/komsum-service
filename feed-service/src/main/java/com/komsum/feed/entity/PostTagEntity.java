@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class PostTagEntity {
 
 	@PrimaryKeyColumn(name = "TAG_ID", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
-    private Integer tagId;
+    private String tagId;
 
     @PrimaryKeyColumn(name = "CREATED_AT", ordinal = 1, ordering = Ordering.DESCENDING)
     private Instant createdAt;

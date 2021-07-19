@@ -38,5 +38,5 @@ public class PostDto {
     
     private String streetName;
 
-    private List<Integer> tagIds;
+    private List<String> tagIds;
 }
