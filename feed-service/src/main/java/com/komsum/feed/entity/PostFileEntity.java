@@ -10,7 +10,7 @@ import org.springframework.data.cassandra.core.mapping.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table("POST_IMAGE")
+@Table("POST_FILE")
 @Data
 @NoArgsConstructor
 public class PostFileEntity {

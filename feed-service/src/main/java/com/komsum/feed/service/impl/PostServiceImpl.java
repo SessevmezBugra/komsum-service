@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.data.cassandra.core.query.CassandraPageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import com.komsum.feed.client.PostServiceClient;
 import com.komsum.feed.dto.PostDto;
@@ -39,14 +40,16 @@ public class PostServiceImpl implements PostService{
 		List<String> postIds = slice.getContent().stream().map(PostEntity::getPostId).distinct()
 				.collect(Collectors.toList());
 		List<PostDto> posts = postServiceClient.getPostsByIdIn(postIds).getBody();
-		List<PostFileEntity> files = postFileService.findByIdIn(postIds);
-		files.stream().forEach(f -> {
-			posts.stream().forEach(p -> {
-				if(p.getId().equals(f.getPostId())) {
-					p.setFileId(f.getFileId());
-				}
+		if(!ObjectUtils.isEmpty(postIds)) {
+			List<PostFileEntity> files = postFileService.findByIdIn(postIds);
+			files.stream().forEach(f -> {
+				posts.stream().forEach(p -> {
+					if(p.getId().equals(f.getPostId())) {
+						p.setFileId(f.getFileId());
+					}
+				});
 			});
-		});
+		}
 		return SlicedResult.<PostDto>builder().content(posts).isLast(slice.isLast()).build();
 	}
 
