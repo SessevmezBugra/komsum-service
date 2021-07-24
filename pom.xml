@@ -36,6 +36,7 @@
         <module>eureka-server</module>
         <module>tag-service</module>
         <module>feed-service</module>
+        <module>file-service</module>
     </modules>
 
     <dependencyManagement>

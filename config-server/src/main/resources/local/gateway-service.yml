@@ -26,6 +26,10 @@ spring:
           uri: ${FEED_SERVICE_URI:http://localhost:8093}
           predicates:
             - Path=/feed/**
+        - id: file-service
+          uri: ${FILE_SERVICE_URI:http://localhost:8094}
+          predicates:
+            - Path=/file/**
 
 eureka:
   client:

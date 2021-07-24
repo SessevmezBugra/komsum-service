@@ -284,6 +284,42 @@ services:
     #     limits:
     #       memory: 3G
 
+  file-service:
+    container_name: file-service
+    image: bsessevmez/file-service:latest
+    build:
+      context: file-service
+      dockerfile: Dockerfile
+    environment:
+      # RABBIT_URI: $RABBIT_URI
+      ACTIVE_PROFILE: $ACTIVE_PROFILE
+      RDS_HOSTNAME: $FILE_DB_HOSTNAME
+      RDS_PORT: $FILE_DB_PORT
+      RDS_DB_NAME: $FILE_DB_NAME
+      RDS_USERNAME: $FILE_DB_USERNAME
+      RDS_PASSWORD: $FILE_DB_PASSWORD
+      CONFIG_URI:  $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+      KEYCLOAK_URI: $KEYCLOAK_URI
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+    ports:
+      - "8094:8094"
+#    labels:
+#      collect_logs_with_filebeat: "true"
+#      decode_log_event_to_json_object: "true"
+    restart: always
+    depends_on:
+      - geography-database #file-database olarak degistirilecek
+      - eureka-server
+      # - rabbitmq
+      #      - zipkin-server
+      - config-server
+
 # Volumes
 volumes:
   database-volume:

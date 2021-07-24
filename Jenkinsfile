@@ -46,6 +46,12 @@ pipeline {
             }
         }
 
+        stage('file-service') {
+            steps {
+                build job: 'file-service-pipeline', propagate: true, wait: true
+            }
+        }
+
         stage('deploy') {
             steps {
                 sh 'docker-compose up -d'
