@@ -10,5 +10,5 @@ public interface PostStreetTagService {
 
 	SlicedResult<PostDto> findByStreetId(Integer streetId, Integer page);
 
-	SlicedResult<PostDto> findByStreetIdAndTagIdIn(Integer streetId, Iterable<Integer> tagIds, Integer page);
+	SlicedResult<PostDto> findByStreetIdAndTagIdIn(Integer streetId, Iterable<String> tagIds, Integer page);
 }

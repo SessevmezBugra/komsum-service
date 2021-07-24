@@ -10,6 +10,6 @@ public interface PostCountryTagService {
 	
 	SlicedResult<PostDto> findByCountryId(Integer countryId, Integer page);
 
-	SlicedResult<PostDto> findByCountryIdAndTagIdIn(Integer countryId, Iterable<Integer> tagIds, Integer page);
+	SlicedResult<PostDto> findByCountryIdAndTagIdIn(Integer countryId, Iterable<String> tagIds, Integer page);
 
 }

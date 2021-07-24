@@ -12,5 +12,5 @@ public interface PostCityTagRepository  extends CassandraRepository<PostCityTagE
 	
 	Slice<PostCityTagEntity> findByCityId(Integer cityId, Pageable pageable);
 	
-	Slice<PostCityTagEntity> findByCityIdAndTagIdIn(Integer cityId, Iterable<Integer> tagIds, Pageable pageable);
+	Slice<PostCityTagEntity> findByCityIdAndTagIdIn(Integer cityId, Iterable<String> tagIds, Pageable pageable);
 }

@@ -50,7 +50,7 @@ public class PostDistrictTagServiceImpl implements PostDistrictTagService {
 	}
 
 	@Override
-	public SlicedResult<PostDto> findByDistrictIdAndTagIdIn(Integer districtId, Iterable<Integer> tagIds, Integer page) {
+	public SlicedResult<PostDto> findByDistrictIdAndTagIdIn(Integer districtId, Iterable<String> tagIds, Integer page) {
 		Slice<PostDistrictTagEntity> slice = postDistrictTagRepository.findByDistrictIdAndTagIdIn(districtId, tagIds, CassandraPageRequest.first(AppConstants.PAGE_SIZE));
 		int currpage = 0;
 		while (slice.hasNext() && currpage < page) {

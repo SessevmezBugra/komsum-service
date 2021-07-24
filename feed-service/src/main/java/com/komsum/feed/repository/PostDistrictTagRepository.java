@@ -12,5 +12,5 @@ public interface PostDistrictTagRepository extends CassandraRepository<PostDistr
 
 	Slice<PostDistrictTagEntity> findByDistrictId(Integer countryId, Pageable pageable);
 
-	Slice<PostDistrictTagEntity> findByDistrictIdAndTagIdIn(Integer countryId, Iterable<Integer> tagIds, Pageable pageable);
+	Slice<PostDistrictTagEntity> findByDistrictIdAndTagIdIn(Integer countryId, Iterable<String> tagIds, Pageable pageable);
 }

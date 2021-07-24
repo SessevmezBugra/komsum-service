@@ -50,7 +50,7 @@ public class PostNeighborhoodTagServiceImpl implements PostNeighborhoodTagServic
 	}
 
 	@Override
-	public SlicedResult<PostDto> findByNeighborhoodIdAndTagIdIn(Integer neighborhoodId, Iterable<Integer> tagIds,
+	public SlicedResult<PostDto> findByNeighborhoodIdAndTagIdIn(Integer neighborhoodId, Iterable<String> tagIds,
 			Integer page) {
 		Slice<PostNeighborhoodTagEntity> slice = postNeighborhoodTagRepository.findByNeighborhoodIdAndTagIdIn(neighborhoodId, tagIds, CassandraPageRequest.first(AppConstants.PAGE_SIZE));
 		int currpage = 0;

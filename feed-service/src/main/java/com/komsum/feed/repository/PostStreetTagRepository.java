@@ -12,6 +12,6 @@ public interface PostStreetTagRepository extends CassandraRepository<PostStreetT
 
 	Slice<PostStreetTagEntity> findByStreetId(Integer streetId, Pageable pageable);
 
-	Slice<PostStreetTagEntity> findByStreetIdAndTagIdIn(Integer streetId, Iterable<Integer> tagIds, Pageable pageable);
+	Slice<PostStreetTagEntity> findByStreetIdAndTagIdIn(Integer streetId, Iterable<String> tagIds, Pageable pageable);
 
 }

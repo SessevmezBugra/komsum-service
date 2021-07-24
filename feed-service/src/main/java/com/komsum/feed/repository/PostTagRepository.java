@@ -11,6 +11,6 @@ import com.komsum.feed.entity.PostTagEntity;
 @Repository
 public interface PostTagRepository extends CassandraRepository<PostTagEntity, String> {
 
-	Slice<PostStreetTagEntity> findByTagIdIn(Iterable<Integer> tagIds, Pageable pageable);
+	Slice<PostStreetTagEntity> findByTagIdIn(Iterable<String> tagIds, Pageable pageable);
 
 }

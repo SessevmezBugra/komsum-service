@@ -8,5 +8,5 @@ public interface PostTagService {
 	
 	PostTagEntity create(PostTagEntity postTagEntity);
 
-	SlicedResult<PostDto> findByTagIdIn(Iterable<Integer> tagIds, Integer page);
+	SlicedResult<PostDto> findByTagIdIn(Iterable<String> tagIds, Integer page);
 }

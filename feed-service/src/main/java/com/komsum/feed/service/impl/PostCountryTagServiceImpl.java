@@ -50,7 +50,7 @@ public class PostCountryTagServiceImpl implements PostCountryTagService {
 	}
 
 	@Override
-	public SlicedResult<PostDto> findByCountryIdAndTagIdIn(Integer countryId, Iterable<Integer> tagIds, Integer page) {
+	public SlicedResult<PostDto> findByCountryIdAndTagIdIn(Integer countryId, Iterable<String> tagIds, Integer page) {
 		Slice<PostCountryTagEntity> slice = postCountryTagRepository.findByCountryIdAndTagIdIn(countryId, tagIds, CassandraPageRequest.first(AppConstants.PAGE_SIZE));
 		int currpage = 0;
 		while (slice.hasNext() && currpage < page) {

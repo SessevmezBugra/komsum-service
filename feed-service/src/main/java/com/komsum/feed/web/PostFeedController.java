@@ -104,7 +104,7 @@ public class PostFeedController {
 			@RequestParam(value = "districtId") Optional<Integer> districtId,
 			@RequestParam(value = "neighborhoodId") Optional<Integer> neighborhoodId,
 			@RequestParam(value = "streetId") Optional<Integer> streetId,
-			@RequestParam(value = "tagIds", required = false) List<Integer> tagIds,
+			@RequestParam(value = "tagIds", required = false) List<String> tagIds,
 			@RequestParam(value = "pageNumber") Optional<Integer> pageNumber) {
 		Integer desiredPage = pageNumber.map(dp -> dp).orElse(0);
 		if (countryId.isPresent()) {

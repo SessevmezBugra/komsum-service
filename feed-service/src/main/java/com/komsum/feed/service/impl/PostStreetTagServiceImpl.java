@@ -50,7 +50,7 @@ public class PostStreetTagServiceImpl implements PostStreetTagService{
 	}
 
 	@Override
-	public SlicedResult<PostDto> findByStreetIdAndTagIdIn(Integer streetId, Iterable<Integer> tagIds, Integer page) {
+	public SlicedResult<PostDto> findByStreetIdAndTagIdIn(Integer streetId, Iterable<String> tagIds, Integer page) {
 		Slice<PostStreetTagEntity> slice = postStreetTagRepository.findByStreetIdAndTagIdIn(streetId, tagIds, CassandraPageRequest.first(AppConstants.PAGE_SIZE));
 		int currpage = 0;
 		while (slice.hasNext() && currpage < page) {

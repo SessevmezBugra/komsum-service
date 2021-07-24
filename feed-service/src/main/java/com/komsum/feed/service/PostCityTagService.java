@@ -10,6 +10,6 @@ public interface PostCityTagService {
 	
 	SlicedResult<PostDto> findByCityId(Integer cityId, Integer page);
 	
-	SlicedResult<PostDto> findByCityIdAndTagIdIn(Integer cityId, Iterable<Integer> tagIds, Integer page);
+	SlicedResult<PostDto> findByCityIdAndTagIdIn(Integer cityId, Iterable<String> tagIds, Integer page);
 
 }

@@ -12,5 +12,5 @@ public interface PostNeighborhoodTagRepository extends CassandraRepository<PostN
 
 	Slice<PostNeighborhoodTagEntity> findByNeighborhoodId(Integer neighborhoodId, Pageable pageable);
 
-	Slice<PostNeighborhoodTagEntity> findByNeighborhoodIdAndTagIdIn(Integer neighborhoodId, Iterable<Integer> tagIds, Pageable pageable);
+	Slice<PostNeighborhoodTagEntity> findByNeighborhoodIdAndTagIdIn(Integer neighborhoodId, Iterable<String> tagIds, Pageable pageable);
 }

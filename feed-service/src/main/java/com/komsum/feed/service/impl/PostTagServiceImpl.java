@@ -29,7 +29,7 @@ public class PostTagServiceImpl implements PostTagService{
 	private final PostFileService postFileService;
 
 	@Override
-	public SlicedResult<PostDto> findByTagIdIn(Iterable<Integer> tagIds, Integer page) {
+	public SlicedResult<PostDto> findByTagIdIn(Iterable<String> tagIds, Integer page) {
 		Slice<PostStreetTagEntity> slice = postTagRepository.findByTagIdIn(tagIds, CassandraPageRequest.first(AppConstants.PAGE_SIZE));
 		int currpage = 0;
 		while (slice.hasNext() && currpage < page) {

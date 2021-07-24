@@ -12,5 +12,5 @@ public interface PostCountryTagRepository extends CassandraRepository<PostCountr
 
 	Slice<PostCountryTagEntity> findByCountryId(Integer countryId, Pageable pageable);
 
-	Slice<PostCountryTagEntity> findByCountryIdAndTagIdIn(Integer countryId, Iterable<Integer> tagIds, Pageable pageable);
+	Slice<PostCountryTagEntity> findByCountryIdAndTagIdIn(Integer countryId, Iterable<String> tagIds, Pageable pageable);
 }

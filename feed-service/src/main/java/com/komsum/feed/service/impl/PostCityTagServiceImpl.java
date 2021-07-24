@@ -50,7 +50,7 @@ public class PostCityTagServiceImpl implements PostCityTagService{
 	}
 
 	@Override
-	public SlicedResult<PostDto> findByCityIdAndTagIdIn(Integer cityId, Iterable<Integer> tagIds, Integer page) {
+	public SlicedResult<PostDto> findByCityIdAndTagIdIn(Integer cityId, Iterable<String> tagIds, Integer page) {
 		Slice<PostCityTagEntity> slice = postCityTagRepository.findByCityIdAndTagIdIn(cityId, tagIds, CassandraPageRequest.first(AppConstants.PAGE_SIZE));
 		int currpage = 0;
 		while (slice.hasNext() && currpage < page) {

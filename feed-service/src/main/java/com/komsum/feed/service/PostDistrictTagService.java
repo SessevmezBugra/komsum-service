@@ -10,6 +10,6 @@ public interface PostDistrictTagService {
 
 	SlicedResult<PostDto> findByDistrictId(Integer districtId, Integer page);
 
-	SlicedResult<PostDto> findByDistrictIdAndTagIdIn(Integer districtId, Iterable<Integer> tagIds, Integer page);
+	SlicedResult<PostDto> findByDistrictIdAndTagIdIn(Integer districtId, Iterable<String> tagIds, Integer page);
 	
 }
