@@ -17,6 +17,7 @@ import com.komsum.feed.entity.PostCityTagEntity;
 import com.komsum.feed.entity.PostCountryTagEntity;
 import com.komsum.feed.entity.PostDistrictTagEntity;
 import com.komsum.feed.entity.PostEntity;
+import com.komsum.feed.entity.PostFileEntity;
 import com.komsum.feed.entity.PostNeighborhoodTagEntity;
 import com.komsum.feed.entity.PostStreetTagEntity;
 import com.komsum.feed.entity.PostTagEntity;
@@ -24,6 +25,7 @@ import com.komsum.feed.model.SlicedResult;
 import com.komsum.feed.service.PostCityTagService;
 import com.komsum.feed.service.PostCountryTagService;
 import com.komsum.feed.service.PostDistrictTagService;
+import com.komsum.feed.service.PostFileService;
 import com.komsum.feed.service.PostNeighborhoodTagService;
 import com.komsum.feed.service.PostService;
 import com.komsum.feed.service.PostStreetTagService;
@@ -45,6 +47,7 @@ public class PostFeedController {
 	private final PostNeighborhoodTagService postNeighborhoodTagService;
 	private final PostStreetTagService postStreetTagService;
 	private final ModelMapper modelMapper;
+	private final PostFileService postFileService;
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> createPost(@RequestBody PostDto postDto) {
@@ -55,7 +58,8 @@ public class PostFeedController {
 		PostStreetTagEntity postStreetTagEntity = modelMapper.map(postDto, PostStreetTagEntity.class);
 		PostTagEntity postTagEntity = modelMapper.map(postDto, PostTagEntity.class);
 		PostEntity postEntity = modelMapper.map(postDto, PostEntity.class);
-
+		PostFileEntity postFileEntity = modelMapper.map(postDto, PostFileEntity.class);
+		
 		postCountryTagEntity.setPostId(postDto.getId());
 		postCityTagEntity.setPostId(postDto.getId());
 		postDistrictTagEntity.setPostId(postDto.getId());
@@ -63,7 +67,11 @@ public class PostFeedController {
 		postStreetTagEntity.setPostId(postDto.getId());
 		postTagEntity.setPostId(postDto.getId());
 		postEntity.setPostId(postDto.getId());
-
+		postFileEntity.setPostId(postDto.getId());
+		
+		if(!ObjectUtils.isEmpty(postFileEntity.getFileId())) {
+			postFileService.create(postFileEntity);
+		}
 		postService.create(postEntity);
 		postDto.getTagIds().forEach(tagId -> {
 			postCountryTagEntity.setTagId(tagId);

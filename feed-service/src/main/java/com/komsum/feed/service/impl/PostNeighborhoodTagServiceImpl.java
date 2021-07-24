@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.komsum.feed.client.PostServiceClient;
 import com.komsum.feed.dto.PostDto;
+import com.komsum.feed.entity.PostFileEntity;
 import com.komsum.feed.entity.PostNeighborhoodTagEntity;
 import com.komsum.feed.model.SlicedResult;
 import com.komsum.feed.repository.PostNeighborhoodTagRepository;
+import com.komsum.feed.service.PostFileService;
 import com.komsum.feed.service.PostNeighborhoodTagService;
 import com.komsum.feed.util.constant.AppConstants;
 
@@ -23,6 +25,7 @@ public class PostNeighborhoodTagServiceImpl implements PostNeighborhoodTagServic
 
 	private final PostNeighborhoodTagRepository postNeighborhoodTagRepository;
 	private final PostServiceClient postServiceClient;
+	private final PostFileService postFileService;
 	
 	@Override
 	public SlicedResult<PostDto> findByNeighborhoodId(Integer neighborhoodId, Integer page) {
@@ -35,6 +38,14 @@ public class PostNeighborhoodTagServiceImpl implements PostNeighborhoodTagServic
 		List<String> postIds = slice.getContent().stream().map(PostNeighborhoodTagEntity::getPostId).distinct()
 				.collect(Collectors.toList());
 		List<PostDto> posts = postServiceClient.getPostsByIdIn(postIds).getBody();
+		List<PostFileEntity> files = postFileService.findByIdIn(postIds);
+		files.stream().forEach(f -> {
+			posts.stream().forEach(p -> {
+				if(p.getId().equals(f.getPostId())) {
+					p.setFileId(f.getFileId());
+				}
+			});
+		});
 		return SlicedResult.<PostDto>builder().content(posts).isLast(slice.isLast()).build();
 	}
 
@@ -50,6 +61,14 @@ public class PostNeighborhoodTagServiceImpl implements PostNeighborhoodTagServic
 		List<String> postIds = slice.getContent().stream().map(PostNeighborhoodTagEntity::getPostId).distinct()
 				.collect(Collectors.toList());
 		List<PostDto> posts = postServiceClient.getPostsByIdIn(postIds).getBody();
+		List<PostFileEntity> files = postFileService.findByIdIn(postIds);
+		files.stream().forEach(f -> {
+			posts.stream().forEach(p -> {
+				if(p.getId().equals(f.getPostId())) {
+					p.setFileId(f.getFileId());
+				}
+			});
+		});
 		return SlicedResult.<PostDto>builder().content(posts).isLast(slice.isLast()).build();
 	}
 

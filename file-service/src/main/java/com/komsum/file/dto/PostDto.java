@@ -1,4 +1,4 @@
-package com.komsum.post.dto;
+package com.komsum.file.dto;
 
 import java.time.Instant;
 import java.util.List;

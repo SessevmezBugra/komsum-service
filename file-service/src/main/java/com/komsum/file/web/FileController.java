@@ -1,4 +1,4 @@
-package com.komsum.file.controller;
+package com.komsum.file.web;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,8 +28,9 @@ public class FileController {
 	private final FileService fileService;
 	
 	@RequestMapping(method= RequestMethod.POST)
-    public ResponseEntity<FileEntity> createFile(@RequestParam("file") MultipartFile file) throws IOException{
-        return ResponseEntity.ok(fileService.create(file));
+    public ResponseEntity<String> createFile(@RequestParam("file") MultipartFile file) throws IOException {
+		FileEntity fileEntity = fileService.create(file);
+		return ResponseEntity.ok(fileEntity.getId());
     }
 	
 	@RequestMapping(method=RequestMethod.GET)

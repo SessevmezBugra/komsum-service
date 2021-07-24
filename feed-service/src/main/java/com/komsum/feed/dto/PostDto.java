@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class PostDto {
 
-    private String id;
+	private String id;
 
     private String username;
 
@@ -39,5 +39,6 @@ public class PostDto {
     private String streetName;
 
     private List<String> tagIds;
-
+    
+    private String fileId;
 }

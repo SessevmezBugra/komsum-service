@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import com.komsum.feed.client.PostServiceClient;
 import com.komsum.feed.dto.PostDto;
 import com.komsum.feed.entity.PostCityTagEntity;
+import com.komsum.feed.entity.PostFileEntity;
 import com.komsum.feed.model.SlicedResult;
 import com.komsum.feed.repository.PostCityTagRepository;
 import com.komsum.feed.service.PostCityTagService;
+import com.komsum.feed.service.PostFileService;
 import com.komsum.feed.util.constant.AppConstants;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,7 @@ public class PostCityTagServiceImpl implements PostCityTagService{
 	
 	private final PostCityTagRepository postCityTagRepository;
 	private final PostServiceClient postServiceClient;
+	private final PostFileService postFileService;
 
 	@Override
 	public SlicedResult<PostDto> findByCityId(Integer cityId, Integer page) {
@@ -35,6 +38,14 @@ public class PostCityTagServiceImpl implements PostCityTagService{
 		List<String> postIds = slice.getContent().stream().map(PostCityTagEntity::getPostId).distinct()
 				.collect(Collectors.toList());
 		List<PostDto> posts = postServiceClient.getPostsByIdIn(postIds).getBody();
+		List<PostFileEntity> files = postFileService.findByIdIn(postIds);
+		files.stream().forEach(f -> {
+			posts.stream().forEach(p -> {
+				if(p.getId().equals(f.getPostId())) {
+					p.setFileId(f.getFileId());
+				}
+			});
+		});
 		return SlicedResult.<PostDto>builder().content(posts).isLast(slice.isLast()).build();
 	}
 
@@ -49,6 +60,14 @@ public class PostCityTagServiceImpl implements PostCityTagService{
 		List<String> postIds = slice.getContent().stream().map(PostCityTagEntity::getPostId).distinct()
 				.collect(Collectors.toList());
 		List<PostDto> posts = postServiceClient.getPostsByIdIn(postIds).getBody();
+		List<PostFileEntity> files = postFileService.findByIdIn(postIds);
+		files.stream().forEach(f -> {
+			posts.stream().forEach(p -> {
+				if(p.getId().equals(f.getPostId())) {
+					p.setFileId(f.getFileId());
+				}
+			});
+		});
 		return SlicedResult.<PostDto>builder().content(posts).isLast(slice.isLast()).build();
 	}
 

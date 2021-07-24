@@ -5,9 +5,11 @@ import com.komsum.post.entity.PostEntity;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public interface PostService {
 
-    PostEntity create(PostDto postDto);
+    PostEntity create(PostDto postDto, MultipartFile file);
 
     PostEntity update(PostEntity postEntity);
 

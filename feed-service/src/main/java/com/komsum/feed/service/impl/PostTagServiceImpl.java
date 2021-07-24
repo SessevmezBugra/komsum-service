@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.komsum.feed.client.PostServiceClient;
 import com.komsum.feed.dto.PostDto;
+import com.komsum.feed.entity.PostFileEntity;
 import com.komsum.feed.entity.PostStreetTagEntity;
 import com.komsum.feed.entity.PostTagEntity;
 import com.komsum.feed.model.SlicedResult;
 import com.komsum.feed.repository.PostTagRepository;
+import com.komsum.feed.service.PostFileService;
 import com.komsum.feed.service.PostTagService;
 import com.komsum.feed.util.constant.AppConstants;
 
@@ -24,6 +26,7 @@ public class PostTagServiceImpl implements PostTagService{
 	
 	private final PostTagRepository postTagRepository;
 	private final PostServiceClient postServiceClient;
+	private final PostFileService postFileService;
 
 	@Override
 	public SlicedResult<PostDto> findByTagIdIn(Iterable<Integer> tagIds, Integer page) {
@@ -36,6 +39,14 @@ public class PostTagServiceImpl implements PostTagService{
 		List<String> postIds = slice.getContent().stream().map(PostStreetTagEntity::getPostId).distinct()
 				.collect(Collectors.toList());
 		List<PostDto> posts = postServiceClient.getPostsByIdIn(postIds).getBody();
+		List<PostFileEntity> files = postFileService.findByIdIn(postIds);
+		files.stream().forEach(f -> {
+			posts.stream().forEach(p -> {
+				if(p.getId().equals(f.getPostId())) {
+					p.setFileId(f.getFileId());
+				}
+			});
+		});
 		return SlicedResult.<PostDto>builder().content(posts).isLast(slice.isLast()).build();
 	}
 

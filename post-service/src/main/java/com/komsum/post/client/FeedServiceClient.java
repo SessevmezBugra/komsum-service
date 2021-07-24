@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(name = "feed-service")
 public interface FeedServiceClient {
         @RequestMapping(value = "/feed/post", method= RequestMethod.POST)
-        public ResponseEntity createPostFeed(@RequestBody PostDto postDto);
+        public ResponseEntity<Object> createPostFeed(@RequestBody PostDto postDto);
 
 }
