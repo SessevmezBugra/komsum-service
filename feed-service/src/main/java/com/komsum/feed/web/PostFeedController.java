@@ -81,6 +81,7 @@ public class PostFeedController {
 			postStreetTagEntity.setTagId(tagId);
 			postTagEntity.setTagId(tagId);
 
+			System.out.println(postCountryTagEntity.getTagId());
 			postCountryTagService.create(postCountryTagEntity);
 			postCityTagService.create(postCityTagEntity);
 			postDistrictTagService.create(postDistrictTagEntity);

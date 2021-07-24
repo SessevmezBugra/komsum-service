@@ -23,7 +23,7 @@ public class PostFileServiceImpl implements PostFileService {
 
 	@Override
 	public List<PostFileEntity> findByIdIn(List<String> ids) {
-		return postFileRepository.findAllById(ids);
+		return postFileRepository.findByPostIdIn(ids);
 	}
 
 }
