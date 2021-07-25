@@ -72,14 +72,14 @@ public class PostFeedController {
 		if(!ObjectUtils.isEmpty(postFileEntity.getFileId())) {
 			postFileService.create(postFileEntity);
 		}
-		postDto.getTagIds().forEach(tagId -> {
-			postCountryTagEntity.setTagId(tagId);
-			postCityTagEntity.setTagId(tagId);
-			postDistrictTagEntity.setTagId(tagId);
-			postNeighborhoodTagEntity.setTagId(tagId);
-			postStreetTagEntity.setTagId(tagId);
-			postTagEntity.setTagId(tagId);
-			postEntity.setTagId(tagId);
+		postDto.getTags().forEach(tag -> {
+			postCountryTagEntity.setTagId(tag.getId());
+			postCityTagEntity.setTagId(tag.getId());
+			postDistrictTagEntity.setTagId(tag.getId());
+			postNeighborhoodTagEntity.setTagId(tag.getId());
+			postStreetTagEntity.setTagId(tag.getId());
+			postTagEntity.setTagId(tag.getId());
+			postEntity.setTagId(tag.getId());
 
 			System.out.println(postCountryTagEntity.getTagId());
 			postCountryTagService.create(postCountryTagEntity);

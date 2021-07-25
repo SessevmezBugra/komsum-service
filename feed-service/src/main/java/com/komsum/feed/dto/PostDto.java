@@ -39,7 +39,11 @@ public class PostDto {
     
     private String streetName;
 
-    private List<String> tagIds = new ArrayList<String>();
+    private List<TagDto> tags = new ArrayList<TagDto>();
     
     private String fileId;
+    
+    public void addTagg(TagDto tag) {
+    	this.tags.add(tag);
+    }
 }

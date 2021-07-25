@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import com.komsum.feed.client.PostServiceClient;
+import com.komsum.feed.client.TagServiceClient;
 import com.komsum.feed.dto.PostDto;
+import com.komsum.feed.dto.TagDto;
 import com.komsum.feed.entity.PostEntity;
 import com.komsum.feed.entity.PostFileEntity;
 import com.komsum.feed.model.SlicedResult;
@@ -28,6 +30,7 @@ public class PostServiceImpl implements PostService{
 	private final PostRepository postRepository;
 	private final PostServiceClient postServiceClient;
 	private final PostFileService postFileService;
+	private final TagServiceClient tagServiceClient;
 
 	@Override
 	public SlicedResult<PostDto> findAll(Integer page) {
@@ -37,26 +40,28 @@ public class PostServiceImpl implements PostService{
 			slice = postRepository.findAll(slice.nextPageable());
 			currpage++;
 		}
-		List<String> postIds = slice.getContent().stream().map(PostEntity::getPostId).distinct()
+		List<PostEntity> desiredPage = slice.getContent();
+		List<String> postIds = desiredPage.stream().map(PostEntity::getPostId).distinct()
+				.collect(Collectors.toList());
+		List<String> foundTagIds = desiredPage.stream().map(PostEntity::getTagId).distinct()
 				.collect(Collectors.toList());
 		List<PostDto> posts = postServiceClient.getPostsByIdIn(postIds).getBody();
-		if(!ObjectUtils.isEmpty(postIds)) {
+		List<TagDto> tags = tagServiceClient.getTagsByIdIn(foundTagIds).getBody();
+		if (!ObjectUtils.isEmpty(postIds)) {
 			List<PostFileEntity> files = postFileService.findByIdIn(postIds);
-			files.stream().forEach(f -> {
-				posts.stream().forEach(p -> {
-					if(p.getId().equals(f.getPostId())) {
+			posts.stream().forEach(p -> {
+				files.stream().forEach(f -> {
+					if (p.getId().equals(f.getPostId())) {
 						p.setFileId(f.getFileId());
+					}
+				});
+				desiredPage.stream().forEach(s -> {
+					if (s.getPostId().equals(p.getId())) {
+						p.addTagg(tags.stream().filter(t -> t.getId().equals(s.getTagId())).findFirst().get());
 					}
 				});
 			});
 		}
-		slice.getContent().stream().forEach(s -> {
-			posts.forEach(p -> {
-				if(s.getPostId().equals(p.getId())) {
-					p.getTagIds().add(s.getTagId());
-				}
-			});
-		});
 		return SlicedResult.<PostDto>builder().content(posts).isLast(slice.isLast()).build();
 	}
 

@@ -16,4 +16,6 @@ public interface TagService {
     TagEntity findById(String id);
 
     List<TagEntity> findAll();
+    
+    Iterable<TagEntity> findByIdIn(List<String> ids);
 }

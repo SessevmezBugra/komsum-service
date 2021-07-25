@@ -40,4 +40,9 @@ public class TagController {
     public ResponseEntity<List<TagEntity>> getAllTags(){
         return ResponseEntity.ok(tagService.findAll());
     }
+    
+    @RequestMapping(value="/in", method= RequestMethod.POST)
+    public ResponseEntity<Iterable<TagEntity>> getTagsByIdIn(@RequestBody List<String> ids){
+        return ResponseEntity.ok(tagService.findByIdIn(ids));
+    }
 }
