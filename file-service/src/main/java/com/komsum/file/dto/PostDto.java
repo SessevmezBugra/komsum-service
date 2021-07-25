@@ -1,6 +1,7 @@
 package com.komsum.file.dto;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
@@ -38,7 +39,7 @@ public class PostDto {
     
     private String streetName;
 
-    private List<String> tagIds;
+    private List<String> tagIds = new ArrayList<String>();
     
     private String fileId;
 }
