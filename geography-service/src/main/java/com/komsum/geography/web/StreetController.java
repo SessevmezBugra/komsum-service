@@ -27,7 +27,7 @@ public class StreetController {
         return ResponseEntity.ok(streetService.findByNeighborhoodId(neighborhoodId));
     }
     
-    @RequestMapping(value = "/in", method = RequestMethod.GET)
+    @RequestMapping(value = "/in", method = RequestMethod.POST)
     public ResponseEntity<List<StreetEntity>> getByStreetIdIn(@RequestBody List<Integer> ids) {
         return ResponseEntity.ok(streetService.findByStreetIdIn(ids));
     }
