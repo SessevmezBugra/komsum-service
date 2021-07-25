@@ -8,9 +8,11 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import com.komsum.feed.client.GeographyServiceClient;
 import com.komsum.feed.client.PostServiceClient;
 import com.komsum.feed.client.TagServiceClient;
 import com.komsum.feed.dto.PostDto;
+import com.komsum.feed.dto.StreetDto;
 import com.komsum.feed.dto.TagDto;
 import com.komsum.feed.entity.PostCityTagEntity;
 import com.komsum.feed.entity.PostFileEntity;
@@ -30,6 +32,7 @@ public class PostCityTagServiceImpl implements PostCityTagService {
 	private final PostServiceClient postServiceClient;
 	private final PostFileService postFileService;
 	private final TagServiceClient tagServiceClient;
+	private final GeographyServiceClient geographyServiceClient;
 
 	@Override
 	public SlicedResult<PostDto> findByCityId(Integer cityId, Integer page) {
@@ -45,8 +48,12 @@ public class PostCityTagServiceImpl implements PostCityTagService {
 				.collect(Collectors.toList());
 		List<String> foundTagIds = desiredPage.stream().map(PostCityTagEntity::getTagId).distinct()
 				.collect(Collectors.toList());
+		List<Integer> streetIds = desiredPage.stream().map(PostCityTagEntity::getStreetId).distinct()
+				.collect(Collectors.toList());
 		List<PostDto> posts = postServiceClient.getPostsByIdIn(postIds).getBody();
 		List<TagDto> tags = tagServiceClient.getTagsByIdIn(foundTagIds).getBody();
+		List<StreetDto> streets = geographyServiceClient.getStreetsByIdIn(streetIds).getBody();
+		
 		if (!ObjectUtils.isEmpty(postIds)) {
 			List<PostFileEntity> files = postFileService.findByIdIn(postIds);
 			posts.stream().forEach(p -> {
@@ -58,8 +65,17 @@ public class PostCityTagServiceImpl implements PostCityTagService {
 				desiredPage.stream().forEach(s -> {
 					if (s.getPostId().equals(p.getId())) {
 						p.addTagg(tags.stream().filter(t -> t.getId().equals(s.getTagId())).findFirst().get());
+						StreetDto street = streets.stream().filter(st -> st.getId() == s.getStreetId()).findFirst().get();
+						p.setCityId(street.getCityId());
+						p.setCityName(street.getCityName());
+						p.setDistrictId(street.getDistrictId());
+						p.setDistrictName(street.getDistrictName());
+						p.setNeighborhoodName(street.getNeighborhoodName());
+						p.setStreetId(street.getId());
+						p.setStreetName(street.getName());
 					}
 				});
+				
 			});
 		}
 
@@ -80,8 +96,12 @@ public class PostCityTagServiceImpl implements PostCityTagService {
 				.collect(Collectors.toList());
 		List<String> foundTagIds = desiredPage.stream().map(PostCityTagEntity::getTagId).distinct()
 				.collect(Collectors.toList());
+		List<Integer> streetIds = desiredPage.stream().map(PostCityTagEntity::getStreetId).distinct()
+				.collect(Collectors.toList());
 		List<PostDto> posts = postServiceClient.getPostsByIdIn(postIds).getBody();
 		List<TagDto> tags = tagServiceClient.getTagsByIdIn(foundTagIds).getBody();
+		List<StreetDto> streets = geographyServiceClient.getStreetsByIdIn(streetIds).getBody();
+		
 		if (!ObjectUtils.isEmpty(postIds)) {
 			List<PostFileEntity> files = postFileService.findByIdIn(postIds);
 			posts.stream().forEach(p -> {
@@ -93,8 +113,17 @@ public class PostCityTagServiceImpl implements PostCityTagService {
 				desiredPage.stream().forEach(s -> {
 					if (s.getPostId().equals(p.getId())) {
 						p.addTagg(tags.stream().filter(t -> t.getId().equals(s.getTagId())).findFirst().get());
+						StreetDto street = streets.stream().filter(st -> st.getId() == s.getStreetId()).findFirst().get();
+						p.setCityId(street.getCityId());
+						p.setCityName(street.getCityName());
+						p.setDistrictId(street.getDistrictId());
+						p.setDistrictName(street.getDistrictName());
+						p.setNeighborhoodName(street.getNeighborhoodName());
+						p.setStreetId(street.getId());
+						p.setStreetName(street.getName());
 					}
 				});
+				
 			});
 		}
 		return SlicedResult.<PostDto>builder().content(posts).isLast(slice.isLast()).build();

@@ -1,18 +1,19 @@
 package com.komsum.geography.web;
 
-import com.komsum.geography.entity.NeighborhoodEntity;
-import com.komsum.geography.entity.StreetEntity;
-import com.komsum.geography.service.NeighborhoodService;
-import com.komsum.geography.service.StreetService;
-import com.komsum.geography.util.constant.ApiPaths;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.komsum.geography.entity.StreetEntity;
+import com.komsum.geography.service.StreetService;
+import com.komsum.geography.util.constant.ApiPaths;
+
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping(ApiPaths.StreetCtrl.CTRL)
@@ -24,5 +25,10 @@ public class StreetController {
     @RequestMapping(value = "/neighborhood/{id}", method = RequestMethod.GET)
     public ResponseEntity<List<StreetEntity>> getByNeighborhoodId(@PathVariable(value = "id") Integer neighborhoodId) {
         return ResponseEntity.ok(streetService.findByNeighborhoodId(neighborhoodId));
+    }
+    
+    @RequestMapping(value = "/in", method = RequestMethod.GET)
+    public ResponseEntity<List<StreetEntity>> getByStreetIdIn(@RequestBody List<Integer> ids) {
+        return ResponseEntity.ok(streetService.findByStreetIdIn(ids));
     }
 }

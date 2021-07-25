@@ -39,4 +39,9 @@ public class StreetServiceImpl implements StreetService {
     public List<StreetEntity> findByNeighborhoodId(Integer neighborhoodId) {
         return streetRepository.findByNeighborhoodId(neighborhoodId);
     }
+
+	@Override
+	public List<StreetEntity> findByStreetIdIn(Iterable<Integer> ids) {
+		return streetRepository.findAllById(ids);
+	}
 }
