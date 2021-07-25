@@ -50,6 +50,13 @@ public class PostServiceImpl implements PostService{
 				});
 			});
 		}
+		slice.getContent().stream().forEach(s -> {
+			posts.forEach(p -> {
+				if(s.getPostId().equals(p.getId())) {
+					p.getTagIds().add(s.getTagId());
+				}
+			});
+		});
 		return SlicedResult.<PostDto>builder().content(posts).isLast(slice.isLast()).build();
 	}
 

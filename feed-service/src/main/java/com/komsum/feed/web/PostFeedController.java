@@ -72,7 +72,6 @@ public class PostFeedController {
 		if(!ObjectUtils.isEmpty(postFileEntity.getFileId())) {
 			postFileService.create(postFileEntity);
 		}
-		postService.create(postEntity);
 		postDto.getTagIds().forEach(tagId -> {
 			postCountryTagEntity.setTagId(tagId);
 			postCityTagEntity.setTagId(tagId);
@@ -80,6 +79,7 @@ public class PostFeedController {
 			postNeighborhoodTagEntity.setTagId(tagId);
 			postStreetTagEntity.setTagId(tagId);
 			postTagEntity.setTagId(tagId);
+			postEntity.setTagId(tagId);
 
 			System.out.println(postCountryTagEntity.getTagId());
 			postCountryTagService.create(postCountryTagEntity);
@@ -88,6 +88,7 @@ public class PostFeedController {
 			postNeighborhoodTagService.create(postNeighborhoodTagEntity);
 			postStreetTagService.create(postStreetTagEntity);
 			postTagService.create(postTagEntity);
+			postService.create(postEntity);
 		});
 		return ResponseEntity.ok().build();
 	}

@@ -24,4 +24,7 @@ public class PostEntity {
     @PrimaryKeyColumn(name = "STREET_ID", ordinal = 2, type = PrimaryKeyType.PARTITIONED)
     private Integer streetId;
     
+    @PrimaryKeyColumn(name = "TAG_ID", ordinal = 3)
+    private String tagId;
+    
 }
