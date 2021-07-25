@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +13,6 @@ import com.komsum.geography.entity.StreetEntity;
 import com.komsum.geography.service.StreetService;
 import com.komsum.geography.util.constant.ApiPaths;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -28,7 +28,7 @@ public class StreetController {
     }
     
     @RequestMapping(value = "/in", method = RequestMethod.POST)
-    public ResponseEntity<List<StreetEntity>> getByStreetIdIn(@RequestBody List<Integer> ids) {
+    public ResponseEntity<List<StreetEntity>> getByStreetIdIn(@RequestBody Iterable<Integer> ids) {
         return ResponseEntity.ok(streetService.findByStreetIdIn(ids));
     }
 }
