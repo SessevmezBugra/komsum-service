@@ -65,15 +65,20 @@ public class PostCityTagServiceImpl implements PostCityTagService {
 				});
 				desiredPage.stream().forEach(s -> {
 					if (s.getPostId().equals(p.getId())) {
-						p.addTagg(tags.stream().filter(t -> t.getId().equals(s.getTagId())).findFirst().get());
-						StreetDto street = streets.stream().filter(st -> st.getId() == s.getStreetId()).findFirst().get();
-						p.setCityId(street.getCityId());
-						p.setCityName(street.getCityName());
-						p.setDistrictId(street.getDistrictId());
-						p.setDistrictName(street.getDistrictName());
-						p.setNeighborhoodName(street.getNeighborhoodName());
-						p.setStreetId(street.getId());
-						p.setStreetName(street.getName());
+						Optional<TagDto> tagDto = tags.stream().filter(t -> t.getId().equals(s.getTagId())).findFirst();
+						tagDto.ifPresent(t -> {
+							p.addTagg(t);
+						});
+						Optional<StreetDto> street = streets.stream().filter(st -> st.getId().equals(s.getStreetId())).findFirst();
+						street.ifPresent(sd -> {
+							p.setCityId(sd.getCityId());
+							p.setCityName(sd.getCityName());
+							p.setDistrictId(sd.getDistrictId());
+							p.setDistrictName(sd.getDistrictName());
+							p.setNeighborhoodName(sd.getNeighborhoodName());
+							p.setStreetId(sd.getId());
+							p.setStreetName(sd.getName());
+						});
 					}
 				});
 				
@@ -117,7 +122,7 @@ public class PostCityTagServiceImpl implements PostCityTagService {
 						tagDto.ifPresent(t -> {
 							p.addTagg(t);
 						});
-						Optional<StreetDto> street = streets.stream().filter(st -> st.getId() == s.getStreetId()).findFirst();
+						Optional<StreetDto> street = streets.stream().filter(st -> st.getId().equals(s.getStreetId())).findFirst();
 						street.ifPresent(sd -> {
 							p.setCityId(sd.getCityId());
 							p.setCityName(sd.getCityName());

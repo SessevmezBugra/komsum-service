@@ -69,7 +69,7 @@ public class PostTagServiceImpl implements PostTagService{
 						tagDto.ifPresent(t -> {
 							p.addTagg(t);
 						});
-						Optional<StreetDto> street = streets.stream().filter(st -> st.getId() == s.getStreetId()).findFirst();
+						Optional<StreetDto> street = streets.stream().filter(st -> st.getId().equals(s.getStreetId())).findFirst();
 						street.ifPresent(sd -> {
 							p.setCityId(sd.getCityId());
 							p.setCityName(sd.getCityName());
