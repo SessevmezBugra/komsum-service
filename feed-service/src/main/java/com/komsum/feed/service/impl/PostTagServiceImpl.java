@@ -36,7 +36,7 @@ public class PostTagServiceImpl implements PostTagService{
 	private final TagServiceClient tagServiceClient;
 	private final GeographyServiceClient geographyServiceClient;
 
-	@Override
+	@Override//test
 	public SlicedResult<PostDto> findByTagIdIn(Iterable<String> tagIds, Integer page) {
 		Slice<PostStreetTagEntity> slice = postTagRepository.findByTagIdIn(tagIds, CassandraPageRequest.first(AppConstants.PAGE_SIZE));
 		int currpage = 0;
