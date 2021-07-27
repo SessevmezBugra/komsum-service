@@ -2,6 +2,32 @@ version: '3.9'
 
 services:
 
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - dhparam:/etc/nginx/dhparam
+      - certs:/etc/nginx/certs:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    restart: always
+    privileged: true
+
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: nginx-proxy-le
+    volumes_from:
+      - nginx-proxy
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - acme:/etc/acme.sh
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
   config-server:
     container_name: config-server
     image: bsessevmez/config-server:latest
@@ -65,9 +91,9 @@ services:
       FAIL_FAST: $FAIL_FAST
       EUREKA_URI: $EUREKA_URI
       ZIPKIN_URI: $ZIPKIN_URI
-      VIRTUAL_HOST: service.arcloudfactories.com
+      VIRTUAL_HOST: service.komsumdannehaber.com
       VIRTUAL_PORT: 4000
-      LETSENCRYPT_HOST: service.arcloudfactories.com
+      LETSENCRYPT_HOST: service.komsumdannehaber.com
       LETSENCRYPT_EMAIL: sessevmezbugra@gmail.com
       AUTH_SERVICE_URI: $AUTH_SERVICE_URI
       GEOGRAPHY_SERVICE_URI: $GEOGRAPHY_SERVICE_URI
