@@ -356,7 +356,8 @@ volumes:
   certs:
   acme:
 
-#networks:
-#  default:
-#    external:
-#      name: webproxy
+
+networks:
+  default:
+    external:
+      name: webproxy
