@@ -12,3 +12,9 @@ spring:
 
 server:
   port: 8093
+  
+  
+keycloak:
+  resource: feed-service
+  credentials: 
+    secret: 5c341f4c-10df-45f2-a028-741b35818ff3

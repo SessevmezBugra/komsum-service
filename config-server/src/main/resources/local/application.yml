@@ -6,3 +6,11 @@ eureka:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka/}
   server:
     peer-node-read-timeout-ms: 300000
+    
+keycloak:
+  auth-server-url: ${KEYCLOAK_URI:http://localhost:8080/auth}
+  realm: komsumdannehaber
+  bearer-only: true
+  public-client: true
+  principal-attribute: preferred_username
+  ssl-required: none

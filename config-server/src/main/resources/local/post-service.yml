@@ -12,3 +12,9 @@ spring:
 
 server:
   port: 8091
+  
+  
+keycloak:
+  resource: post-service
+  credentials: 
+    secret: e799221d-45c7-421c-add5-054e3ba5dd1b

@@ -21,3 +21,9 @@ spring:
 
 server:
   port: 8090
+  
+  
+keycloak:
+  resource: geography-service
+  credentials: 
+    secret: ed15bd48-3b7a-43e2-96ab-e129f0f31a07

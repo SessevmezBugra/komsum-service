@@ -12,3 +12,9 @@ spring:
 
 server:
   port: 8092
+  
+  
+keycloak:
+  resource: tag-service
+  credentials: 
+    secret: 982f65f9-5f28-4eb9-a35b-2da741951b21
