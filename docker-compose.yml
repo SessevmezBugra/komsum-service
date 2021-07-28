@@ -355,7 +355,7 @@ services:
       VIRTUAL_PORT: 8080
       LETSENCRYPT_HOST: auth.dev.komsumdannehaber.com
       LETSENCRYPT_EMAIL: sessevmezbugra@gmail.com
-      PROXY_ADDRESS_FORWARDING: "true"
+      PROXY_ADDRESS_FORWARDING: "false"
       JDBC_PARAMS: "ssl=false" 
       DB_VENDOR: MYSQL
       DB_ADDR: $FILE_DB_HOSTNAME
