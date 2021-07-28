@@ -115,6 +115,7 @@ services:
       # - rabbitmq
       #      - zipkin-server
       - config-server
+      - nginx-proxy
 
   geography-service:
     container_name: geography-service
