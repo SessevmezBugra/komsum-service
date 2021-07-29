@@ -37,7 +37,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping(ApiPath.PostFeedCtrl.CTRL)
 @RequiredArgsConstructor
-public class PostFeedController {
+public class PostFeedController implements SecuredRestController{
 
 	private final PostService postService;
 	private final PostTagService postTagService;

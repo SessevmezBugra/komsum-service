@@ -17,4 +17,14 @@ server:
 keycloak:
   resource: feed-service
   credentials: 
-    secret: 5c341f4c-10df-45f2-a028-741b35818ff3
+    secret: ${FEED_SERVICE_CLIENT_SECRET:5c341f4c-10df-45f2-a028-741b35818ff3}
+    
+springdoc:
+  swagger-ui:
+    oauth:
+      clientId: feed-service
+      clientSecret: ${FEED_SERVICE_CLIENT_SECRET:5c341f4c-10df-45f2-a028-741b35818ff3}
+      usePkceWithAuthorizationCodeGrant: true
+  oAuthFlow:
+    authorizationUrl: ${KEYCLOAK_URI:http://localhost:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/auth
+    tokenUrl: ${KEYCLOAK_URI:http://localhost:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/token

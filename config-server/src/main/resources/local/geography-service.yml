@@ -26,4 +26,14 @@ server:
 keycloak:
   resource: geography-service
   credentials: 
-    secret: ed15bd48-3b7a-43e2-96ab-e129f0f31a07
+    secret: ${GEOGRAPHY_SERVICE_CLIENT_SECRET:ed15bd48-3b7a-43e2-96ab-e129f0f31a07}
+    
+springdoc:
+  swagger-ui:
+    oauth:
+      clientId: geography-service
+      clientSecret: ${GEOGRAPHY_SERVICE_CLIENT_SECRET:ed15bd48-3b7a-43e2-96ab-e129f0f31a07}
+      usePkceWithAuthorizationCodeGrant: true
+  oAuthFlow:
+    authorizationUrl: ${KEYCLOAK_URI:http://localhost:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/auth
+    tokenUrl: ${KEYCLOAK_URI:http://localhost:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/token

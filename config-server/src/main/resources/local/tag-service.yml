@@ -17,4 +17,15 @@ server:
 keycloak:
   resource: tag-service
   credentials: 
-    secret: 982f65f9-5f28-4eb9-a35b-2da741951b21
+    secret: ${TAG_SERVICE_CLIENT_SECRET:982f65f9-5f28-4eb9-a35b-2da741951b21}
+    
+    
+springdoc:
+  swagger-ui:
+    oauth:
+      clientId: tag-service
+      clientSecret: ${TAG_SERVICE_CLIENT_SECRET:982f65f9-5f28-4eb9-a35b-2da741951b21}
+      usePkceWithAuthorizationCodeGrant: true
+  oAuthFlow:
+    authorizationUrl: ${KEYCLOAK_URI:http://localhost:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/auth
+    tokenUrl: ${KEYCLOAK_URI:http://localhost:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/token

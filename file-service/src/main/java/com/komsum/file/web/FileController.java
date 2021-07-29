@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping(ApiPaths.FileCtrl.CTRL)
 @RequiredArgsConstructor
-public class FileController {
+public class FileController implements SecuredRestController{
 
 	private final FileService fileService;
 	

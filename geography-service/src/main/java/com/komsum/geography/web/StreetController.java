@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping(ApiPaths.StreetCtrl.CTRL)
 @RequiredArgsConstructor
-public class StreetController {
+public class StreetController implements SecuredRestController {
 
     private final StreetService streetService;
 

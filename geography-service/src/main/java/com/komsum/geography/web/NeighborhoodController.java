@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping(ApiPaths.NeighborhoodCtrl.CTRL)
 @RequiredArgsConstructor
-public class NeighborhoodController {
+public class NeighborhoodController implements SecuredRestController {
 
     private final NeighborhoodService neighborhoodService;
 

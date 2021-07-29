@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping(ApiPaths.DistrictCtrl.CTRL)
 @RequiredArgsConstructor
-public class DistrictController {
+public class DistrictController implements SecuredRestController {
 
     private final DistrictService districtService;
 

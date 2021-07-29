@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping(ApiPath.TagCtrl.CTRL)
 @RestController
 @RequiredArgsConstructor
-public class TagController {
+public class TagController implements SecuredRestController{
 
     private final TagService tagService;
 

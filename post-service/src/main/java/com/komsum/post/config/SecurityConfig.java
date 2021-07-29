@@ -79,7 +79,10 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-        http.csrf().disable().cors().configurationSource(corsConfigurationSource()).and()
+        http.csrf().disable()
+        .cors().configurationSource(corsConfigurationSource())
+        
+        .and()
                 // make sure we use stateless session; session won't be used to store user's state.
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()

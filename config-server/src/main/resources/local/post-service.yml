@@ -17,4 +17,15 @@ server:
 keycloak:
   resource: post-service
   credentials: 
-    secret: e799221d-45c7-421c-add5-054e3ba5dd1b
+    secret: ${POST_SERVICE_CLIENT_SECRET:e799221d-45c7-421c-add5-054e3ba5dd1b}
+    
+    
+springdoc:
+  swagger-ui:
+    oauth:
+      clientId: post-service
+      clientSecret: ${POST_SERVICE_CLIENT_SECRET:e799221d-45c7-421c-add5-054e3ba5dd1b}
+      usePkceWithAuthorizationCodeGrant: true
+  oAuthFlow:
+    authorizationUrl: ${KEYCLOAK_URI:http://localhost:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/auth
+    tokenUrl: ${KEYCLOAK_URI:http://localhost:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/token
