@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(ApiPath.PostCtrl.CTRL)
 @RequiredArgsConstructor
 public class PostController implements SecuredRestController{
-
+//
     private final PostService postService;
 
     @RequestMapping(method= RequestMethod.POST)
