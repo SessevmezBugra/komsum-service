@@ -29,14 +29,14 @@ server:
 keycloak:
   resource: file-service
   credentials: 
-    secret: ${FILE_SERVICE_CLIENT_SECRET:bdfc6e50-0f72-4d4a-847c-664834848bf6}
+    secret: ${CLIENT_SECRET:bdfc6e50-0f72-4d4a-847c-664834848bf6}
  
      
 springdoc:
   swagger-ui:
     oauth:
       clientId: file-service
-      clientSecret: ${FILE_SERVICE_CLIENT_SECRET:bdfc6e50-0f72-4d4a-847c-664834848bf6}
+      clientSecret: ${CLIENT_SECRET:bdfc6e50-0f72-4d4a-847c-664834848bf6}
       usePkceWithAuthorizationCodeGrant: true
   oAuthFlow:
     authorizationUrl: ${KEYCLOAK_URI:http://localhost:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/auth
