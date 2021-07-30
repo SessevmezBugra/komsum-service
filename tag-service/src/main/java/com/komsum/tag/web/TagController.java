@@ -1,4 +1,4 @@
-package com.komsum.tag.controller;
+package com.komsum.tag.web;
 
 import com.komsum.tag.entity.TagEntity;
 import com.komsum.tag.service.TagService;
