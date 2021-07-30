@@ -136,6 +136,7 @@ services:
       EUREKA_URI: $EUREKA_URI
       ZIPKIN_URI: $ZIPKIN_URI
       KEYCLOAK_URI: $KEYCLOAK_URI
+      CLIENT_SECRET: $GEOGRAPHY_SERVICE_CLIENT_SECRET
     deploy:
       resources:
         limits:
@@ -187,6 +188,7 @@ services:
       EUREKA_URI: $EUREKA_URI
       ZIPKIN_URI: $ZIPKIN_URI
       KEYCLOAK_URI: $KEYCLOAK_URI
+      CLIENT_SECRET: $POST_SERVICE_CLIENT_SECRET
     deploy:
       resources:
         limits:
@@ -248,6 +250,7 @@ services:
       EUREKA_URI: $EUREKA_URI
       ZIPKIN_URI: $ZIPKIN_URI
       KEYCLOAK_URI: $KEYCLOAK_URI
+      CLIENT_SECRET: $TAG_SERVICE_CLIENT_SECRET
     deploy:
       resources:
         limits:
@@ -283,6 +286,7 @@ services:
       ZIPKIN_URI: $ZIPKIN_URI
       KEYCLOAK_URI: $KEYCLOAK_URI
       DATA_CENTER: $DATA_CENTER
+      CLIENT_SECRET: $FEED_SERVICE_CLIENT_SECRET
     deploy:
       resources:
         limits:
@@ -330,6 +334,7 @@ services:
       EUREKA_URI: $EUREKA_URI
       ZIPKIN_URI: $ZIPKIN_URI
       KEYCLOAK_URI: $KEYCLOAK_URI
+      CLIENT_SECRET: $FILE_SERVICE_CLIENT_SECRET
     deploy:
       resources:
         limits:
