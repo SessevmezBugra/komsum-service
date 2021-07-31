@@ -79,7 +79,9 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-        http.csrf().disable().cors().configurationSource(corsConfigurationSource()).and()
+        http
+//        csrf().disable()
+        .cors().configurationSource(corsConfigurationSource()).and()
                 // make sure we use stateless session; session won't be used to store user's state.
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
@@ -89,7 +91,7 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
+        CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
 
         configuration.setAllowedOriginPatterns(ImmutableList.of("*"));
         configuration.setAllowedMethods(ImmutableList.of("GET", "POST", "OPTIONS", "DELETE", "PUT"));
@@ -97,7 +99,6 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                 "Access-Control-Allow-Headers", "X-Auth-Token", "Authorization", "Origin"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(123L);
-
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
