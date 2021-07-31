@@ -14,3 +14,13 @@ keycloak:
   public-client: true
   principal-attribute: preferred_username
   ssl-required: none
+  
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+    restart:
+      enabled: true
+  
