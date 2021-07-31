@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @EnableFeignClients
 @SpringBootApplication
 public class PostServiceApplication {
-
+//
     public static void main(String[] args) {
         SpringApplication.run(PostServiceApplication.class, args);
     }

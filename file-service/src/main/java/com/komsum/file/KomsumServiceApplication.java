@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @EnableGlobalMethodSecurity(jsr250Enabled = true)
 @SpringBootApplication
 public class KomsumServiceApplication {
-
+//
 	public static void main(String[] args) {
 		SpringApplication.run(KomsumServiceApplication.class, args);
 	}

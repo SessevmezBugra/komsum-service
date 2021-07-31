@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @EnableFeignClients
 @SpringBootApplication
 public class FeedServiceApplication {
-
+//
     public static void main(String[] args) {
         SpringApplication.run(FeedServiceApplication.class, args);
     }
