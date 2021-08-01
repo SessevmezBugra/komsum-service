@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.komsum.feed.config.ClientConfiguration;
 import com.komsum.feed.dto.PostDto;
 
-@FeignClient(name = "post-service")
+@FeignClient(name = "post-service", configuration = {ClientConfiguration.class})
 public interface PostServiceClient {
 
     @RequestMapping(value = "/post/in", method= RequestMethod.POST)

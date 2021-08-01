@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.komsum.feed.config.ClientConfiguration;
 import com.komsum.feed.dto.StreetDto;
 
-@FeignClient(name = "geography-service")
+@FeignClient(name = "geography-service", configuration = {ClientConfiguration.class})
 public interface GeographyServiceClient {
 	
 	@RequestMapping(value = "/geography/street/in", method= RequestMethod.POST)
