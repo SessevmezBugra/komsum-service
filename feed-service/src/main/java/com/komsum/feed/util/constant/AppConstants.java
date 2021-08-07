@@ -2,5 +2,5 @@ package com.komsum.feed.util.constant;
 
 public interface AppConstants {
 
-    int PAGE_SIZE = 20;
+    int PAGE_SIZE = 5;
 }
