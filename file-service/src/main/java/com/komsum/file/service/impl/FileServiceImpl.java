@@ -41,4 +41,9 @@ public class FileServiceImpl implements FileService {
 		return fileRepository.findAll();
 	}
 
+	@Override
+	public FileEntity update(FileEntity file) throws IOException {
+		return fileRepository.save(file);
+	}
+
 }

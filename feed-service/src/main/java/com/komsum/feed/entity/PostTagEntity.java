@@ -27,4 +27,7 @@ public class PostTagEntity {
     
     @Column("STREET_ID")
     private Integer streetId;
+    
+    @Column("USERNAME")
+    private String username;
 }

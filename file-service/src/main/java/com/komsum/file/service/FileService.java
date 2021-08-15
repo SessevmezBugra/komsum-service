@@ -11,6 +11,8 @@ public interface FileService {
 
 	FileEntity create(MultipartFile file) throws IOException;
 	
+	FileEntity update(FileEntity file) throws IOException;
+	
 	FileEntity findById(String id);
 	
 	List<FileEntity> findByIdIn(List<String> ids);

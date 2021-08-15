@@ -37,6 +37,7 @@
         <module>tag-service</module>
         <module>feed-service</module>
         <module>file-service</module>
+        <module>user-service</module>
     </modules>
 
     <dependencyManagement>

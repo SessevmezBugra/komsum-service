@@ -30,6 +30,10 @@ spring:
           uri: ${FILE_SERVICE_URI:http://localhost:8094}
           predicates:
             - Path=/file/**
+        - id: user-service
+          uri: ${USER_SERVICE_URI:http://localhost:8095}
+          predicates:
+            - Path=/user/**
 
 eureka:
   client:

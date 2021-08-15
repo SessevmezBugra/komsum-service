@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.komsum.post.config.CurrentUserProvider;
 import com.komsum.post.dto.PostDto;
 import com.komsum.post.entity.PostEntity;
 import com.komsum.post.service.PostService;
@@ -27,11 +28,13 @@ import lombok.RequiredArgsConstructor;
 public class PostController implements SecuredRestController{
 ////
     private final PostService postService;
+    private final CurrentUserProvider currentUserProvider;
 
     @RequestMapping(method= RequestMethod.POST)
     public ResponseEntity<PostEntity> createPost(@RequestParam("file") MultipartFile file, @RequestPart("body") String body) throws IOException {
     	ObjectMapper objectMapper = new ObjectMapper();
 		PostDto postDto = objectMapper.readValue(body, PostDto.class);
+		postDto.setUsername(currentUserProvider.getCurrentUser().getUsername());
     	return ResponseEntity.ok(postService.create(postDto, file));
     }
 

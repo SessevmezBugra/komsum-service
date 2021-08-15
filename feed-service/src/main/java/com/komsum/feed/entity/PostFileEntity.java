@@ -4,6 +4,7 @@ import java.time.Instant;
 
 import org.springframework.data.cassandra.core.cql.Ordering;
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
+import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
@@ -23,4 +24,7 @@ public class PostFileEntity {
 	
 	@PrimaryKeyColumn(name = "CREATED_AT", ordinal = 2, ordering = Ordering.DESCENDING)
     private Instant createdAt;
+	
+	@Column("USERNAME")
+    private String username;
 }

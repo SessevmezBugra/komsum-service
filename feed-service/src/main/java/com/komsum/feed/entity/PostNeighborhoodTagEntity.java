@@ -30,4 +30,7 @@ public class PostNeighborhoodTagEntity {
     
     @Column("STREET_ID")
     private Integer streetId;
+    
+    @Column("USERNAME")
+    private String username;
 }

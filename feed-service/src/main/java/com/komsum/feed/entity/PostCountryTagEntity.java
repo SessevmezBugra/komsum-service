@@ -30,5 +30,8 @@ public class PostCountryTagEntity {
     
     @Column("STREET_ID")
     private Integer streetId;
+    
+    @Column("USERNAME")
+    private String username;
 
 }

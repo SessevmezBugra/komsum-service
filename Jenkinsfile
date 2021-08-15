@@ -52,6 +52,12 @@ pipeline {
             }
         }
 
+        stage('user-service') {
+            steps {
+                build job: 'user-service-pipeline', propagate: true, wait: true
+            }
+        }
+
         stage('deploy') {
             steps {
                 sh 'docker-compose up -d'

@@ -101,6 +101,7 @@ services:
       TAG_SERVICE_URI: $TAG_SERVICE_URI
       FEED_SERVICE_URI: $FEED_SERVICE_URI
       FILE_SERVICE_URI: $FILE_SERVICE_URI
+      USER_SERVICE_URI: $USER_SERVICE_URI
     deploy:
       resources:
         limits:
@@ -382,6 +383,43 @@ services:
       # - keycloak-database
       - nginx-proxy
       - geography-database #keycloak-database olarak degistirilecek
+
+  user-service:
+    container_name: user-service
+    image: bsessevmez/user-service:latest
+    build:
+      context: user-service
+      dockerfile: Dockerfile
+    environment:
+      # RABBIT_URI: $RABBIT_URI
+      ACTIVE_PROFILE: $ACTIVE_PROFILE
+      RDS_HOSTNAME: $USER_DB_HOSTNAME
+      RDS_PORT: $USER_DB_PORT
+      RDS_DB_NAME: $USER_DB_NAME
+      RDS_USERNAME: $USER_DB_USERNAME
+      RDS_PASSWORD: $USER_DB_PASSWORD
+      CONFIG_URI:  $CONFIG_URI
+      FAIL_FAST: $FAIL_FAST
+      EUREKA_URI: $EUREKA_URI
+      ZIPKIN_URI: $ZIPKIN_URI
+      KEYCLOAK_URI: $KEYCLOAK_URI
+      CLIENT_SECRET: $USER_SERVICE_CLIENT_SECRET
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+    ports:
+      - "8095:8095"
+#    labels:
+#      collect_logs_with_filebeat: "true"
+#      decode_log_event_to_json_object: "true"
+    restart: always
+    depends_on:
+      - geography-database #user-database olarak degistirilecek
+      - eureka-server
+      # - rabbitmq
+      #      - zipkin-server
+      - config-server
 
 # Volumes
 volumes:

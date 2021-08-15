@@ -4,6 +4,7 @@ import java.time.Instant;
 
 import org.springframework.data.cassandra.core.cql.Ordering;
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
+import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 
@@ -26,5 +27,8 @@ public class PostEntity {
     
     @PrimaryKeyColumn(name = "TAG_ID", ordinal = 3)
     private String tagId;
+    
+    @Column("USERNAME")
+    private String username;
     
 }

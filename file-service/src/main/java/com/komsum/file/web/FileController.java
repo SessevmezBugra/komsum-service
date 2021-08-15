@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.komsum.file.client.UserServiceClient;
+import com.komsum.file.config.CurrentUserProvider;
+import com.komsum.file.dto.UserDto;
 import com.komsum.file.entity.FileEntity;
 import com.komsum.file.service.FileService;
 import com.komsum.file.util.constant.ApiPaths;
@@ -26,6 +31,8 @@ import lombok.RequiredArgsConstructor;
 public class FileController implements SecuredRestController{
 //
 	private final FileService fileService;
+	private final UserServiceClient userServiceClient;
+	private final CurrentUserProvider currentUserProvider;
 	
 	@RequestMapping(method= RequestMethod.POST)
     public ResponseEntity<String> createFile(@RequestPart("file") MultipartFile file) throws IOException {
@@ -57,5 +64,22 @@ public class FileController implements SecuredRestController{
 	@RequestMapping(value="/in", method= RequestMethod.POST)
     public ResponseEntity<List<FileEntity>> getFilesByIdIn(@RequestBody List<String> ids){
         return ResponseEntity.ok(fileService.findByIdIn(ids));
+    }
+	
+	@RequestMapping(value="/profile-picture", method= RequestMethod.POST)
+    public ResponseEntity<String> updateUserProfilePicture(@RequestPart("file") MultipartFile file) throws IOException {
+		UserDto userDto = userServiceClient.getUserByUserId(currentUserProvider.getCurrentUser().getUserId()).getBody();
+		FileEntity fileEntity;
+		if (ObjectUtils.isEmpty(userDto) || ObjectUtils.isEmpty(userDto.getProfilePictureId())) {
+			fileEntity = fileService.create(file);
+		}else {
+			fileEntity = fileService.findById(userDto.getProfilePictureId());
+			fileEntity.setData(file.getBytes());
+			fileEntity.setName(StringUtils.cleanPath(file.getOriginalFilename()));
+			fileEntity.setType(file.getContentType());
+			fileService.update(fileEntity);
+		}
+		userServiceClient.updateUserProfilePicture(fileEntity.getId());
+		return ResponseEntity.ok(fileEntity.getId());
     }
 }
