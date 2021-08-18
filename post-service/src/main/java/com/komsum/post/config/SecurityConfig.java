@@ -113,6 +113,8 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                                    "/configuration/ui",
                                    "/swagger-resources/**",
                                    "/configuration/security",
+                                   "/v3/api-docs/**",
+                                   "/swagger-ui/**",
                                    "/swagger-ui.html",
                                    "/webjars/**");
     }
