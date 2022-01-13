@@ -8,7 +8,9 @@ eureka:
     peer-node-read-timeout-ms: 300000
     
 keycloak:
-  auth-server-url: ${KEYCLOAK_URI:https://auth.dev.komsumdannehaber.com}/auth
+#  auth-server-url: ${KEYCLOAK_URI:https://auth.dev.komsumdannehaber.com}/aut
+#  auth-server-url: ${KEYCLOAK_URI:http://localhost:8080}/auth
+  auth-server-url: ${KEYCLOAK_URI:http://192.168.1.103:8080}/auth
   realm: komsumdannehaber
   bearer-only: true
   public-client: true
@@ -24,3 +26,14 @@ management:
     restart:
       enabled: true
   
+springdoc:
+  swagger-ui:
+    oauth:
+      usePkceWithAuthorizationCodeGrant: true
+  oAuthFlow:
+#    authorizationUrl: ${KEYCLOAK_URI:http://localhost:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/auth
+#    tokenUrl: ${KEYCLOAK_URI:http://localhost:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/token
+    authorizationUrl: ${KEYCLOAK_URI:http://192.168.1.103:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/auth
+    tokenUrl: ${KEYCLOAK_URI:http://192.168.1.103:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/token
+#    authorizationUrl: ${KEYCLOAK_URI:http://172.20.10.4:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/auth
+#    tokenUrl: ${KEYCLOAK_URI:http://172.20.10.4:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/token

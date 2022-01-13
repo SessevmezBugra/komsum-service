@@ -8,13 +8,13 @@ spring:
       idleTimeout: 120000
       connectionTimeout: 300000
       leakDetectionThreshold: 300000
-    url: jdbc:mysql://${RDS_HOSTNAME:localhost}:${RDS_PORT:3306}/${RDS_DB_NAME:user}?serverTimezone=UTC
+    url: jdbc:mysql://${RDS_HOSTNAME:localhost}:${RDS_PORT:3306}/${RDS_DB_NAME:keycloak}?serverTimezone=UTC
     username: ${RDS_USERNAME:root}
     password: ${RDS_PASSWORD:123456}
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     database-platform: org.hibernate.dialect.MySQL8Dialect
@@ -26,14 +26,17 @@ server:
 keycloak:
   resource: user-service
   credentials: 
-    secret: ${CLIENT_SECRET:f5032b31-d9f0-4577-8120-602b8a157306}
+    secret: ${CLIENT_SECRET:ffb61cfb-e7e4-4801-9908-9aa037e6b1b7}
+    
+keycloak-admin-user: admin
+keycloak-admin-password: admin
     
 springdoc:
   swagger-ui:
     oauth:
       clientId: user-service
-      clientSecret: ${CLIENT_SECRET:f5032b31-d9f0-4577-8120-602b8a157306}
-      usePkceWithAuthorizationCodeGrant: true
-  oAuthFlow:
-    authorizationUrl: ${KEYCLOAK_URI:https://auth.dev.komsumdannehaber.com}/auth/realms/komsumdannehaber/protocol/openid-connect/auth
-    tokenUrl: ${KEYCLOAK_URI:https://auth.dev.komsumdannehaber.com}/auth/realms/komsumdannehaber/protocol/openid-connect/token
+      clientSecret: ${CLIENT_SECRET:ffb61cfb-e7e4-4801-9908-9aa037e6b1b7}
+#      usePkceWithAuthorizationCodeGrant: true
+#  oAuthFlow:
+#    authorizationUrl: ${KEYCLOAK_URI:https://auth.dev.komsumdannehaber.com}/auth/realms/komsumdannehaber/protocol/openid-connect/auth
+#    tokenUrl: ${KEYCLOAK_URI:https://auth.dev.komsumdannehaber.com}/auth/realms/komsumdannehaber/protocol/openid-connect/token

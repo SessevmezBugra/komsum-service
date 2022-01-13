@@ -21,6 +21,7 @@ import com.komsum.feed.entity.PostFileEntity;
 import com.komsum.feed.entity.PostNeighborhoodTagEntity;
 import com.komsum.feed.entity.PostStreetTagEntity;
 import com.komsum.feed.entity.PostTagEntity;
+import com.komsum.feed.entity.PostUserEntity;
 import com.komsum.feed.model.SlicedResult;
 import com.komsum.feed.service.PostCityTagService;
 import com.komsum.feed.service.PostCountryTagService;
@@ -30,6 +31,7 @@ import com.komsum.feed.service.PostNeighborhoodTagService;
 import com.komsum.feed.service.PostService;
 import com.komsum.feed.service.PostStreetTagService;
 import com.komsum.feed.service.PostTagService;
+import com.komsum.feed.service.PostUserService;
 import com.komsum.feed.util.constant.ApiPath;
 
 import lombok.RequiredArgsConstructor;
@@ -48,6 +50,7 @@ public class PostFeedController implements SecuredRestController{
 	private final PostStreetTagService postStreetTagService;
 	private final ModelMapper modelMapper;
 	private final PostFileService postFileService;
+	private final PostUserService postUserService;
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> createPost(@RequestBody PostDto postDto) {
@@ -59,6 +62,7 @@ public class PostFeedController implements SecuredRestController{
 		PostTagEntity postTagEntity = modelMapper.map(postDto, PostTagEntity.class);
 		PostEntity postEntity = modelMapper.map(postDto, PostEntity.class);
 		PostFileEntity postFileEntity = modelMapper.map(postDto, PostFileEntity.class);
+		PostUserEntity postUserEntity = modelMapper.map(postDto, PostUserEntity.class);
 		
 		postCountryTagEntity.setPostId(postDto.getId());
 		postCityTagEntity.setPostId(postDto.getId());
@@ -68,6 +72,7 @@ public class PostFeedController implements SecuredRestController{
 		postTagEntity.setPostId(postDto.getId());
 		postEntity.setPostId(postDto.getId());
 		postFileEntity.setPostId(postDto.getId());
+		postUserEntity.setPostId(postDto.getId());
 		
 		if(!ObjectUtils.isEmpty(postFileEntity.getFileId())) {
 			postFileService.create(postFileEntity);
@@ -80,6 +85,7 @@ public class PostFeedController implements SecuredRestController{
 			postStreetTagEntity.setTagId(tag.getId());
 			postTagEntity.setTagId(tag.getId());
 			postEntity.setTagId(tag.getId());
+			postUserEntity.setTagId(tag.getId());
 
 			System.out.println(postCountryTagEntity.getTagId());
 			postCountryTagService.create(postCountryTagEntity);
@@ -89,6 +95,7 @@ public class PostFeedController implements SecuredRestController{
 			postStreetTagService.create(postStreetTagEntity);
 			postTagService.create(postTagEntity);
 			postService.create(postEntity);
+			postUserService.create(postUserEntity);
 		});
 		return ResponseEntity.ok().build();
 	}
@@ -100,6 +107,7 @@ public class PostFeedController implements SecuredRestController{
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<SlicedResult<PostDto>> getPostsByCountryIdAndCityIdAndDistrictIdAndNeighborhoodIdAndStreetIdAndTagIdIn(
+			@RequestParam(value = "username") Optional<String> username,
 			@RequestParam(value = "countryId") Optional<Integer> countryId,
 			@RequestParam(value = "cityId") Optional<Integer> cityId,
 			@RequestParam(value = "districtId") Optional<Integer> districtId,
@@ -108,6 +116,12 @@ public class PostFeedController implements SecuredRestController{
 			@RequestParam(value = "tagIds", required = false) List<String> tagIds,
 			@RequestParam(value = "pageNumber") Optional<Integer> pageNumber) {
 		Integer desiredPage = pageNumber.map(dp -> dp).orElse(0);
+		if(username.isPresent()) {
+			System.err.println("Username : " + username.get());
+			return ResponseEntity
+					.ok(postUserService.findByUsername(username.get(), desiredPage));
+		}
+		
 		if (countryId.isPresent()) {
 			if (cityId.isPresent()) {
 				if (districtId.isPresent()) {

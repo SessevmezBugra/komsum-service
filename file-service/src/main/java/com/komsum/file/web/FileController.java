@@ -3,6 +3,7 @@ package com.komsum.file.web;
 import java.io.IOException;
 import java.util.List;
 
+import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.komsum.file.client.UserServiceClient;
 import com.komsum.file.config.CurrentUserProvider;
-import com.komsum.file.dto.UserDto;
 import com.komsum.file.entity.FileEntity;
 import com.komsum.file.service.FileService;
 import com.komsum.file.util.constant.ApiPaths;
@@ -68,12 +68,12 @@ public class FileController implements SecuredRestController{
 	
 	@RequestMapping(value="/profile-picture", method= RequestMethod.POST)
     public ResponseEntity<String> updateUserProfilePicture(@RequestPart("file") MultipartFile file) throws IOException {
-		UserDto userDto = userServiceClient.getUserByUserId(currentUserProvider.getCurrentUser().getUserId()).getBody();
+		UserRepresentation userDto = userServiceClient.getUserByUserId(currentUserProvider.getCurrentUser().getUserId()).getBody();
 		FileEntity fileEntity;
-		if (ObjectUtils.isEmpty(userDto) || ObjectUtils.isEmpty(userDto.getProfilePictureId())) {
+		if (ObjectUtils.isEmpty(userDto) || ObjectUtils.isEmpty(userDto.firstAttribute("pictureId"))) {
 			fileEntity = fileService.create(file);
 		}else {
-			fileEntity = fileService.findById(userDto.getProfilePictureId());
+			fileEntity = fileService.findById(userDto.firstAttribute("pictureId"));
 			fileEntity.setData(file.getBytes());
 			fileEntity.setName(StringUtils.cleanPath(file.getOriginalFilename()));
 			fileEntity.setType(file.getContentType());

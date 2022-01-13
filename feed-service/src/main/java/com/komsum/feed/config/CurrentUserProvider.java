@@ -12,7 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.komsum.feed.dto.CurrentUser;
+import com.komsum.feed.model.CurrentUser;
 
 @Configuration
 public class CurrentUserProvider {

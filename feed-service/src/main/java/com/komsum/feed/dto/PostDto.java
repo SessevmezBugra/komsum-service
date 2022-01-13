@@ -12,6 +12,12 @@ public class PostDto {
 	private String id;
 
     private String username;
+    
+    private String firstName;
+    
+    private String lastName;
+    
+    private String profilePictureId;
 
     private Instant createdAt;
 

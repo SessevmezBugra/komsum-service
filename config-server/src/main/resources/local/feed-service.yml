@@ -24,7 +24,7 @@ springdoc:
     oauth:
       clientId: feed-service
       clientSecret: ${CLIENT_SECRET:5c341f4c-10df-45f2-a028-741b35818ff3}
-      usePkceWithAuthorizationCodeGrant: true
-  oAuthFlow:
-    authorizationUrl: ${KEYCLOAK_URI:http://localhost:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/auth
-    tokenUrl: ${KEYCLOAK_URI:http://localhost:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/token
+#      usePkceWithAuthorizationCodeGrant: true
+#  oAuthFlow:
+#    authorizationUrl: ${KEYCLOAK_URI:http://localhost:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/auth
+#    tokenUrl: ${KEYCLOAK_URI:http://localhost:8080}/auth/realms/komsumdannehaber/protocol/openid-connect/token

@@ -12,6 +12,9 @@ import org.springframework.util.ObjectUtils;
 import com.komsum.feed.client.GeographyServiceClient;
 import com.komsum.feed.client.PostServiceClient;
 import com.komsum.feed.client.TagServiceClient;
+import com.komsum.feed.client.UserServiceClient;
+import com.komsum.feed.dto.KeycloakUserAttributeDto;
+import com.komsum.feed.dto.KeycloakUserDto;
 import com.komsum.feed.dto.PostDto;
 import com.komsum.feed.dto.StreetDto;
 import com.komsum.feed.dto.TagDto;
@@ -35,6 +38,7 @@ public class PostTagServiceImpl implements PostTagService{
 	private final PostFileService postFileService;
 	private final TagServiceClient tagServiceClient;
 	private final GeographyServiceClient geographyServiceClient;
+	private final UserServiceClient userServiceClient;
 
 	@Override//test
 	public SlicedResult<PostDto> findByTagIdIn(Iterable<String> tagIds, Integer page) {
@@ -51,9 +55,13 @@ public class PostTagServiceImpl implements PostTagService{
 				.collect(Collectors.toList());
 		List<Integer> streetIds = desiredPage.stream().map(PostStreetTagEntity::getStreetId).distinct()
 				.collect(Collectors.toList());
+		List<String> usernames = desiredPage.stream().map(PostStreetTagEntity::getUsername).distinct()
+				.collect(Collectors.toList());
+		
 		List<PostDto> posts = postServiceClient.getPostsByIdIn(postIds).getBody();
 		List<TagDto> tags = tagServiceClient.getTagsByIdIn(foundTagIds).getBody();
 		List<StreetDto> streets = geographyServiceClient.getStreetsByIdIn(streetIds).getBody();
+		List<KeycloakUserDto> users = userServiceClient.getUsersByUsernameIn(usernames).getBody();
 		
 		if (!ObjectUtils.isEmpty(postIds)) {
 			List<PostFileEntity> files = postFileService.findByIdIn(postIds);
@@ -78,6 +86,15 @@ public class PostTagServiceImpl implements PostTagService{
 							p.setNeighborhoodName(sd.getNeighborhoodName());
 							p.setStreetId(sd.getId());
 							p.setStreetName(sd.getName());
+						});
+						Optional<KeycloakUserDto> user = users.stream().filter(u -> u.getUsername().equals(s.getUsername())).findFirst();
+						user.ifPresent(u -> {
+							p.setFirstName(u.getFirstName());
+							p.setLastName(u.getLastName());
+							Optional<KeycloakUserAttributeDto> attribute = u.getAttributes().stream().filter(pic -> pic.getName().equals("pictureId")).findFirst();
+							attribute.ifPresent(att -> {
+								p.setProfilePictureId(att.getValue());
+							});
 						});
 					}
 				});

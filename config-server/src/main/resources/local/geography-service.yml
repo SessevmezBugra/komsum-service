@@ -33,7 +33,7 @@ springdoc:
     oauth:
       clientId: geography-service
       clientSecret: ${CLIENT_SECRET:ed15bd48-3b7a-43e2-96ab-e129f0f31a07}
-      usePkceWithAuthorizationCodeGrant: true
-  oAuthFlow:
-    authorizationUrl: ${KEYCLOAK_URI:https://auth.dev.komsumdannehaber.com}/auth/realms/komsumdannehaber/protocol/openid-connect/auth
-    tokenUrl: ${KEYCLOAK_URI:https://auth.dev.komsumdannehaber.com}/auth/realms/komsumdannehaber/protocol/openid-connect/token
+#      usePkceWithAuthorizationCodeGrant: true
+#  oAuthFlow:
+#    authorizationUrl: ${KEYCLOAK_URI:https://auth.dev.komsumdannehaber.com}/auth/realms/komsumdannehaber/protocol/openid-connect/auth
+#    tokenUrl: ${KEYCLOAK_URI:https://auth.dev.komsumdannehaber.com}/auth/realms/komsumdannehaber/protocol/openid-connect/token
