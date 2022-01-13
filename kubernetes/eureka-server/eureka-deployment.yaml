@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eureka-server-deployment
+  labels:
+    name: eureka-server-deployment
+    app: komsum-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: eureka-server-pod
+      app: komsum-app
+  template:
+    metadata:
+      name: eureka-server-pod
+      labels:
+        name: eureka-server-pod
+        app: komsum-app
+    spec:
+      containers:
+        - name: eureka-server
+          image: bsessevmez/eureka-server:latest
+          ports:
+            - containerPort: 8761
+          env:
+          - name: EUREKA_URI
+            valueFrom:
+              secretKeyRef:
+                name: komsum-secret
+                key: EUREKA_URI
+          - name: CONFIG_URI
+            valueFrom:
+              secretKeyRef:
+                name: komsum-secret
+                key: CONFIG_URI
+          - name: FAIL_FAST
+            valueFrom:
+              secretKeyRef:
+                name: komsum-secret
+                key: FAIL_FAST

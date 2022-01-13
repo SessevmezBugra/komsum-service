@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: eureka-server-pod
+  labels:
+    name: eureka-server-pod
+    app: komsum-app
+spec:
+  containers:
+    - name: eureka-server
+      image: bsessevmez/eureka-server:latest
+      ports:
+        - containerPort: 8761
+      env:
+      - name: EUREKA_URI
+        valueFrom:
+          secretKeyRef:
+            name: komsum-secret
+            key: EUREKA_URI
+      - name: CONFIG_URI
+        valueFrom:
+          secretKeyRef:
+            name: komsum-secret
+            key: CONFIG_URI
+      - name: FAIL_FAST
+        valueFrom:
+          secretKeyRef:
+            name: komsum-secret
+            key: FAIL_FAST

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server-deployment
+  labels:
+    name: config-server-deployment
+    app: komsum-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: config-server-pod
+      app: komsum-app
+  template:
+    metadata:
+      name: config-server-pod
+      labels:
+        name: config-server-pod
+        app: komsum-app
+    spec:
+      containers:
+        - name: config-server
+          image: bsessevmez/config-server:latest
+          ports:
+            - containerPort: 8888
+          env:
+          - name: EUREKA_URI
+            valueFrom:
+              secretKeyRef:
+                name: komsum-secret
+                key: EUREKA_URI
+          - name: ACTIVE_PROFILE
+            valueFrom:
+              secretKeyRef:
+                name: komsum-secret
+                key: CONFIG_SERVER_ACTIVE_PROFILE
+    

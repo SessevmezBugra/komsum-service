@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-server-pod
+  labels:
+    name: config-server-pod
+    app: komsum-app
+spec:
+  containers:
+    - name: config-server
+      image: bsessevmez/config-server:latest
+      ports:
+        - containerPort: 8888
+      env:
+      - name: EUREKA_URI
+        valueFrom:
+          secretKeyRef:
+            name: komsum-secret
+            key: EUREKA_URI
+      - name: ACTIVE_PROFILE
+        valueFrom:
+          secretKeyRef:
+            name: komsum-secret
+            key: CONFIG_SERVER_ACTIVE_PROFILE
+      # env:
+      #   - name: EUREKA_URI
+      #     value: $EUREKA_URI
+      #   - name: ACTIVE_PROFILE
+      #     value: $CONFIG_SERVER_ACTIVE_PROFILE
+      #   - name: ZIPKIN_URI
+      #     value: $ZIPKIN_URI

@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gateway-service-pod
+  labels:
+    name: gateway-service-pod
+    app: komsum-app
+spec:
+  containers:
+    - name: gateway-service
+      image: bsessevmez/gateway-service:latest
+      ports:
+        - containerPort: 4000
+      env:
+      - name: CONFIG_URI
+        valueFrom:
+          secretKeyRef:
+            name: komsum-secret
+            key: CONFIG_URI
+      - name: FAIL_FAST
+        valueFrom:
+          secretKeyRef:
+            name: komsum-secret
+            key: FAIL_FAST
+      - name: EUREKA_URI
+        valueFrom:
+          secretKeyRef:
+            name: komsum-secret
+            key: EUREKA_URI
+      # env:
+      #   - name: CONFIG_URI
+      #     value: $CONFIG_URI
+      #   - name: FAIL_FAST
+      #     value: $FAIL_FAST
+      #   - name: ZIPKIN_URI
+      #     value: $ZIPKIN_URI
+      #   - name: VIRTUAL_HOST
+      #     value: service.dev.komsumdannehaber.com
+      #   - name: VIRTUAL_PORT
+      #     value: "4000"
+      #   - name: LETSENCRYPT_HOST
+      #     value: service.dev.komsumdannehaber.com
+      #   - name: LETSENCRYPT_EMAIL
+      #     value: sessevmezbugra@gmail.com
+      #   - name: AUTH_SERVICE_URI
+      #     value: $AUTH_SERVICE_URI
+      #   - name: GEOGRAPHY_SERVICE_URI
+      #     value: $GEOGRAPHY_SERVICE_URI
+      #   - name: POST_SERVICE_URI
+      #     value: $POST_SERVICE_URI
+      #   - name: TAG_SERVICE_URI
+      #     value: $TAG_SERVICE_URI
+      #   - name: FEED_SERVICE_URI
+      #     value: $FEED_SERVICE_URI
+      #   - name: FILE_SERVICE_URI
+      #     value: $FILE_SERVICE_URI
+      #   - name: USER_SERVICE_URI
+      #     value: $USER_SERVICE_URI
